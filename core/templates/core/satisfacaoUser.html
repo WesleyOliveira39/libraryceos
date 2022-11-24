@@ -1,0 +1,90 @@
+{% extends 'core/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+    <title>Pesquisa de Satisfação</title>
+{% endblock %}
+
+{% block carrossel %}
+{% endblock %}
+
+{% block conteudo %}
+<br>
+<div class="card text-light bg-dark text-justify m-auto col-11" style="padding: 20px;align-items: center;">
+    <h2>
+      Pesquisa de Satisfação
+    </h2>
+    <p> <a href="{% url 'sobre' %}">Conheça o projeto LibraryCeos</a>, com todos os recursos que nossa plataforma pode disponibilizar para você leitor. 
+          Descubra e se conecte com todo nosso conteúdo e acervo. E por fim, reflita sobre o seguinte: “Como fiquei todo esse tempo sem 
+          estar conectado com essa ferramenta?”. 
+    </p>
+    <p>Aproveite, e faça nossa pesquisa de satisfação, afinal nada melhor do que uma boa conversa franca de leitor 
+        para leitor, para uma experiência única de imersão em nossa plataforma. 
+    </p>
+    <img src="{% static 'assets/img/googleFormsICon.png' %}" alt="" style="width: 10%;">
+    <br>
+      <a style="font-size:x-large;width:100%;background-color: #2374e1;border-color: #2374e1;color: white;" href="https://forms.gle/DN12MdsTSd7RjZbW6" class="btn btn-light">INICIAR</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block addcss %}
+    <style>
+        html {
+            box-sizing: border-box;
+        }
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+        .column {
+            float: left;
+            width: 33.3%;
+            margin-bottom: 16px;
+            padding: 0px;
+        }
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin: 0px;
+        }
+        .about-section {
+            padding: 50px;
+            text-align: center;
+            background-color: #474e5d;
+            color: white;
+        }
+        .container {
+            padding: 0 16px;
+        }
+        .container::after,
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        .title {
+            color: grey;
+        }
+        .button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+        }
+        .button:hover {
+            background-color: #555;
+        }
+        @media screen and (max-width: 650px) {
+            .column {
+                width: 100%;
+                display: block;
+            }
+        }
+    </style>
+{% endblock %}

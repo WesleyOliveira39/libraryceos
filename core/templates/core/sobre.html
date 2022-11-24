@@ -1,0 +1,111 @@
+{% extends 'core/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+    <title>EduTeca - Projeto</title>
+{% endblock %}
+
+{% block conteudo %}
+<div class="col-md-10 mx-auto ">
+    <br>
+    <div class="card bg-dark text-light text-justify m-auto card-text" style="border-radius: 10px;padding: 20px;">
+    <h2 align="center">Objetivo</h2>
+    <p>
+    Integrar os acervos das bibliotecas físicas do município de Indaiatuba, a fim de criar um sistema que permita a consulta desses materiais.  
+    </p>
+    </div>
+    <br>
+    <div class="card bg-dark text-light tex m-auto" style="border-radius: 10px;text-align: center;padding: 20px;">
+    <h2>Sobre</h2>
+    <td>
+        <p align="justify"> A EduTeca é um projeto com objetivo de desenvolver uma plataforma em página web, para divulgação de livros das bibliotecas do município de Indaiatuba.
+        </p>
+    </td>
+    <td>
+        <p align="justify">
+            Entretanto, o propósito não é criar um catálogo que ofereça o conteúdo desses materiais de forma digital, propriamente dito; mas especificamente apenas os principais dados sobre, ou seja: título, autor, editora etc.  
+        </p>
+    </td>
+    <td>
+        <p align="justify">
+            Ademais, o site apresentará a(s) localidade(s) em que essa obra literária pode ser encontrada, logicamente, desde que esteja disponível entre os estabelecimentos participantes. Assim como, futuramente divulgará se esse exemplar não está em status de emprestado; e caso situe-se nessa condição, a plataforma deve divulgar a próxima data em que estará livre para retirada.
+        </p>
+    </td>
+    <td>
+        <p align="justify">
+            Outrossim, a justificativa e motivação para oferecer esse diferencial ao usuário da página, é que dessa forma o leitor não precisará mais escolher uma biblioteca aleatoriamente, na qual de maneira incerta, visitará para consultar / retirar o(s) livro(s) de seu interesse; esse(s) que pode(m) estar indisponível no momento da busca. Por conseguinte, o legente também será beneficiado com a otimização de tempo em sua rotina diária, uma vez que, não perderá tempo na locomoção de um estabelecimento para outros. 
+        </p>
+    </td>
+    <td>
+        <p align="justify">
+            Portanto, conclui-se que a ideia central do projeto, é construir um cenário de integração entre as bibliotecas físicas da cidade, a fim de que esses permitem o lançamento de seus materiais em uma plataforma virtual. Dessarte, a possibilitar que possíveis interessados se informem sobre essas obras, assim como, possuir facilidade para acesso a eles. 
+        </p>
+    </td>
+</div>
+</div>
+{% endblock %}
+
+{% block addcss %}
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+    }
+    html {
+        box-sizing: border-box;
+    }
+    *,
+    *:before,
+    *:after {
+        box-sizing: inherit;
+    }
+    .column {
+        float: left;
+        width: 33.3%;
+        margin-bottom: 16px;
+        padding: 0 8px;
+    }
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        margin: 8px;
+    }
+    .about-section {
+        padding: 50px;
+        text-align: center;
+        background-color: #474e5d;
+        color: white;
+    }
+    .container {
+        padding: 0 16px;
+    }
+    .container::after,
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    .title {
+        color: grey;
+    }
+    .button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+    }
+    .button:hover {
+        background-color: #555;
+    }
+    @media screen and (max-width: 650px) {
+        .column {
+            width: 100%;
+            display: block;
+        }
+    }
+</style>
+{% endblock %}

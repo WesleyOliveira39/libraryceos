@@ -1,0 +1,149 @@
+{% extends 'core/modelo.html' %}
+
+{% load static %}
+
+{% block titulo %}
+    <title>Equipe</title>
+{% endblock %}
+
+{% block carrossel %}
+{% endblock %}
+
+{% block barra %}
+{% endblock %}
+
+{% block conteudo %}
+        <div class="card bg-dark text-light text-justify m-auto col-11" style="padding: 20px;">
+            <h1 align="center">Quem somos</h1>
+            <p>
+                O projeto EduTeca de integração dos Acervos das bibliotecas de
+                Indaiatuba foi elaborado e desenvolvido por uma equipe altamente qualificada,
+                especializada, e por último e não menos importante, amante da boa leitura.
+            </p>
+            <p>A equipe é composta pelo Lucas Dias Calado, Luís Fernando Bortolotti,
+                Wesley Henrique Faveri De Oliveira, alunos do quarto semestre do curso de
+                Análise e Desenvolvimento de Sistemas da Fatec-Indaiatuba.
+            </p>
+        </div>
+
+
+    <!-- Parte opcional, se for deixar ACho que seria melhor tirar o segundo trecho do texto acima-->
+    <br>
+    <h2 style="text-align:center">Nosso time</h2>
+    <div class="row">
+        <div class="column">
+            <div class="card bg-dark text-light text-sm-center">
+                <img src="{% static 'img/personaWesley.bmp' %}" alt="Jane" style="border-radius: 5px;position: relative;height: 90%;width:90%;left: 5%;top: 15px;">
+                <div class="container">
+                    <br>
+                    <h2 style="font-size:x-large;">Wesley Henrique Faveri</h2>
+                    <p class="title">Analista de sistemas</p>
+                    <p>wesley.henrique@eduteca.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card bg-dark text-light text-sm-center">
+                <img src="{% static 'img/personaLuis.bmp' %}" alt="Jane" style="border-radius: 5px;position: relative;height: 90%;width:90%;left: 5%;top: 15px;">
+                <div class="container">
+                    <br>
+                    <h2 style="font-size:x-large;">Luis Fernando Bortolotti</h2>
+                    <p class="title">Analista de sistemas</p>
+                    <p>luis.fernando@eduteca.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card bg-dark text-light text-sm-center">
+                <img src="{% static 'img/personaLucas.bmp' %}" alt="Jane" style="border-radius: 5px;position: relative;height: 90%;width:90%;left: 5%;top: 15px;">
+                <div class="container">
+                    <br>
+                    <h2 style="font-size: x-large;">Lucas Dias Calado</h2>
+                    <p class="title">Analista de sistemas</p>
+                    <p>lucas.dias@eduteca.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block carrosselCatalogo %}
+{% endblock %}
+
+{% block style %}
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+        }
+
+        html {
+            box-sizing: border-box;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        .column {
+            float: left;
+            width: 33.3%;
+            margin-bottom: 16px;
+            padding: 0 8px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin: 8px;
+        }
+
+        .about-section {
+            padding: 50px;
+            text-align: center;
+            background-color: #474e5d;
+            color: white;
+        }
+
+        .container {
+            padding: 0 16px;
+        }
+
+        .container::after,
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .title {
+            color: grey;
+        }
+
+        .button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .button:hover {
+            background-color: #555;
+        }
+
+        @media screen and (max-width: 650px) {
+            .column {
+                width: 100%;
+                display: block;
+            }
+        }
+    </style>
+
+{% endblock %}

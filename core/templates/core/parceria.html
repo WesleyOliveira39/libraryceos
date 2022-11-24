@@ -1,0 +1,52 @@
+{% extends 'core/modelo.html' %}
+{% load static %}
+{% block titulo %}
+    <title>Parcerias</title>
+{% endblock %}
+{% block barra %}
+{% endblock %}
+{% block carrossel %}
+{% endblock %}
+{% block conteudo %}
+  <div class="row row-cols-1 row-cols-md-3 g-4 col-11 m-auto">
+    <div class="col">
+      <div class="card bg-dark text-light" style="border-radius: 10px;">
+        <img src="{% static 'assets/img/biblioteca.jpg' %}" class="card-img-top" alt="..." style="position: relative;width: 90%;height: 90%;left: 5%;top: 15px;">
+        <div class="card-body">
+          <br>
+          <h5 class="card-title">Biblioteca Rui Barbosa</h5>
+          <p class="card-text">Endereço: R. das Primaveras, 450 - Vila Bergamo, Indaiatuba - SP, 13345-115.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card bg-dark text-light" style="border-radius: 10px;">
+        <img src="{% static 'assets/img/biblioteca1.jpg' %}" class="card-img-top" alt="..." style="position: relative;width: 90%;height: 90%;left: 5%;top: 15px;">
+        <div class="card-body">
+          <br>
+          <h5 class="card-title">Biblioteca Laura Fahl Corrêa</h5>
+          <p class="card-text">Endereço: R. Jordalino Pietro Bom, 1300 - Jd. Morada do Sol, Indaiatuba-SP, 13348-400.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card bg-dark text-light" style="border-radius: 10px;">
+        <img src="{% static 'assets/img/fatec.png' %}" class="card-img-top" alt="..." style="position: relative;width: 90%;height: 90%;left: 5%;top: 15px;">
+        <div class="card-body">
+          <br>
+          <h5 class="card-title">Biblioteca - Fatec-ID</h5>
+          <p class="card-text">Endereço: R. Dom Pedro I, 65 - Cidade Nova I, Indaiatuba - SP, 13334-100.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+  <div class="col-md-10 mx-auto text-center" style="font-size: larger;">
+      <p>
+        Você é uma instituição e se interessou no projeto? 
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdhLt-8aFDEtH0ILA47X4YTs9r72pwcUrZr4x4wejs-wo9ZYw/viewform?usp=sf_link">Venha participar também.</a>
+      </p>
+  </div>
+{% endblock %}
+{% block carrosselCatalogo %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+    <title>EduTeca</title>
+{% endblock %}
+
+{% block conteudo %}
+<h2>Romance</h2>
+
+<div clas="container">
+
+    {% for genero in generoRomance %} <!--Divisão de Livro a partir do Gênero-->
+
+    <h3>{{ genero.descricao }}</h3>
+    <div class="row mt-3">
+        {% for livro in genero.livro_set.all %}
+                <div class="col-md-4 mx-auto">
+                    <h4>{{ livro.titulo }}</h4>
+                    <a href="{% url 'info-livro' livro.pk %}"><img src="{{ livro.capa.url }}" alt="" class="img-fluid" style="width: 100px; height: 125px; object-fit: cover"></a>
+                </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block carrosselCatalogo %}
+{% endblock %}
+
+

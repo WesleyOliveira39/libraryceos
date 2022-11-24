@@ -1,0 +1,50 @@
+{% extends 'core/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+    <title>Pesquisa de Satisfação</title>
+{% endblock %}
+
+{% block carrossel %}
+{% endblock %}
+
+{% block conteudo %}
+    <br>
+    <div class="card text-light bg-dark text-justify m-auto col-11" style="padding: 20px;align-items: center;">
+      <h2>
+        Pesquisa de Satisfação
+      </h2>
+      <p>
+        <a href="{% url 'sobre' %}">Conheça o projeto LibraryCeos</a>, com todos os recursos que nossa plataforma pode disponibilizar para a sua biblioteca. 
+        Descubra e se conecte com todo nosso conteúdo e acervo. E por fim, reflita sobre o seguinte: “Como fiquei todo esse tempo sem estar 
+        conectado com essa ferramenta?”. 
+      </p>
+      <p>
+        Aproveite, e faça nossa pesquisa de satisfação, afinal nada melhor do que uma boa conversa franca para fazermos a melhor 
+        plataforma já encontrada no segmento. Caso seja uma biblioteca, venha participar da nossa plataforma, e não deixe de colaborar com a sua opinião. 
+      </p>
+      <img src="{% static 'assets/img/googleFormsICon.png' %}" alt="" style="width: 10%;">
+      <br>
+        <a style="font-size:x-large;width:100%;background-color: #2374e1;border-color: #2374e1;color: white;" href="https://forms.gle/2gp3ij96Vj1URUrk6" class="btn btn-light">INICIAR</a>
+      </div>
+    </div>
+{% endblock %}
+
+{% block addcss %}
+    <style>
+        html {
+            box-sizing: border-box;
+        }
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+        @media screen and (max-width: 650px) {
+            .column {
+                width: 100%;
+                display: block;
+            }
+        }
+    </style>
+{% endblock %}

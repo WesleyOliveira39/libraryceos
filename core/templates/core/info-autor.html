@@ -1,0 +1,147 @@
+{% extends 'core/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>{{ autor.nome }}</title>
+<link href="{% static 'assets/css/estilo-info-livro.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block carrossel %}
+{% endblock %}
+
+{% block conteudo %}
+<div class="card col-11 m-auto bg-dark" style="border-radius: 10px;padding: 20px;">
+    <div class="bd">
+        <article class="post single">
+            <div class="dfxb alg-cr">
+                <div class="post-thumbnail alg-ss" style="height: 30%;width: 20%;">
+                    <figure><img style="border-radius: 10px;height: 100%;width: 100%;" src="{{ autor.rosto.url }}"
+                            alt="">
+                    </figure>  
+                    <h7>({{ autor.consulta }} vezes consultado)</h7>
+                </div>
+                <aside class="fg1">
+                    <header>
+                        <h1>{{ autor.nome }}</h1>  
+                        <div> 
+                            
+                            <span>
+                              
+                               
+                                Páginas, 
+                            </span> 
+                            
+                             
+                            <span>
+                                <span>
+                                    Autor(a): 
+
+                        </div>
+                    </header>
+                    <div>
+                        <h4>Descrição:</h4>
+                       
+                    </div>
+                    <br>
+                    <h4 style="position:relative; left:20px" class="text-justify" >Mais informações</h4>
+                    <br>
+                    <ul>
+                        <li> 
+                            <span>Editora:</span> 
+                        </li>
+                        <br>
+                        <li> 
+                            <span>Edição:</span> 
+                        </li>
+                        <br>
+                        <li> 
+                            <span>ISBN: </span>
+                        </li>
+                        <br>
+                    </ul>
+                </aside>
+            </div>
+        </article>
+    </div>
+</div>
+{% endblock %}
+
+{% block addcss %}
+<style>
+    #aa-wp>.bd {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 0 auto;
+        flex: 1 0 auto;
+    }
+    *, :before, :after {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        min-width: 0;
+    }
+    user agent stylesheet
+    div {
+        display: block;
+    }
+    #aa-wp {
+        min-height: 100vh;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        position: relative;
+    }
+    body {
+        margin: 0;
+        font: 400 var(--f-size)/1.8 var(--family),sans-serif;
+        overflow-x: hidden;
+        word-wrap: break-word;
+        background-color: var(--body);
+        color: var(--text);
+        -webkit-text-size-adjust: 100%;
+    }
+    .post.single {
+        z-index: 2;
+    }
+    .post.single, .player aside {
+        margin-bottom: 2rem;
+    }
+    .post {
+        position: relative;
+        margin-bottom: var(--size);
+    }
+    user agent stylesheet
+    article {
+        display: block;
+    }
+    :root {
+        --body: white;
+        --text: #fff;
+        --link: #fff;
+        --link-hover: #03c1ef;
+        --primary: #03c1ef;
+        --secondary: #8c3596;
+        --tertiary: #666;
+        --dark: #000;
+        --light: #fff;
+        --gray: #1b0f30;
+        --gray-light: #311e54;
+        --gray-dark: #eee;
+        --dark-2: rgba(0,0,0,.2);
+        --dark-5: rgba(0,0,0,.5);
+        --light-1: rgba(255,255,255,.1);
+        --light-2: rgba(255,255,255,.2);
+        --light-7: rgba(255,255,255,.7);
+        --success: #28a745;
+        --danger: #ff5757;
+        --warning: #ffc107;
+        --size: 1rem;
+        --f-size: 1rem;
+        --family: 'Work Sans';
+    }
+</style>
+
+
+{% endblock %}

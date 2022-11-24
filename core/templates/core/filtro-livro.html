@@ -1,0 +1,161 @@
+{% extends 'core/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+    <title>EduTeca</title>
+{% endblock %}
+
+{% block barra %}
+<li class="nav-item nav-link dropdown">
+    <a  style="color: rgba(255,255,255,.55)" class="nav-link dropdown-toggle" role="button" id="navbarDropdown" data-bs-toggle="dropdown"
+      aria-expanded="false">
+      Gênero
+    </a>
+    <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
+
+      {% with ''|center:3 as range %}
+      {% for x in range %}
+      <!-- generos-->
+        <li>
+            <!-- inicio do botao do dropdown interno -->
+            <a class="dropdown-item estilo-hover text-light" href="#">
+                {{forloop.counter}} &raquo;
+            </a>
+
+
+            <ul class="dropdown-menu bg-dark text-light dropdown-submenu">
+                {% with ''|center:3 as range2 %}
+                {% for y in range2 %}
+                    <!-- categorias-->
+
+                    <!-- inicio dos itens do submenu -->
+
+                    <li>
+                        <a class="dropdown-item estilo-hover text-light"
+                        href="http://127.0.0.1:8000/?titulo=exemplo {{forloop.counter}}">exemplo {{forloop.counter}}</a>
+                    </li>
+
+                {% endfor %}
+                {% endwith %}
+            </ul>
+
+            <!-- fim do botao do dropdown interno -->
+
+        </li>
+        {% endfor %}
+        {% endwith %}
+    </ul>
+</li>
+<form action="?" method="GET">
+
+    <input type="text" name="seach" id="" value="{{ request.GET.seach }}" class="p-1 border" autocomplete="off" placeholder="Título, Autor, Editora...">
+
+    <button type="submit" class="btn btn-success">Buscar</button>
+
+    <a href="{% url 'index' %}" class="btn btn-light">Limpar</a>
+
+</form>
+{% endblock %}
+
+{% block conteudo %}
+{% if request.user.is_authenticated %}
+    {% if user.perfil.nome_instituicao %} 
+        <h3>Seja bem vindo {{ user.perfil.nome_instituicao }}. </h3>
+    {% else %} 
+        <p>Cadastro imcompleto. Por favor, acesse <a href="{% url 'atualizarDados' %}">Meus Dados</a> para finalizar.</p>
+    {% endif %}
+{% endif %}
+
+    <div class="container">  
+        <div class="book-list">
+            <hr>
+            <h1 class="text-center">Filtro de Livros</h1>
+            <hr>
+            <div id="list-output" class="col-11 m-auto">
+                <div class="row">
+
+                    {% for f in livro_filtro %}
+                    <h1>{{ l.categoria }}</h1>
+                    <div class="row mt-4">
+                        {% for a in l.acervo_set.all %}
+                            <div class="col-6 m-auto">
+                                <div class="row no-gutters bg-dark m-auto"style="left:0%;border-radius: 10px;">
+                                        <div class=" card col-md-5 bg-dark" style="border-radius: 10px;max-width: 100%;max-height: 100%">
+                                        <img src="{{ a.livro.capa.url }}" alt="" class="card-img center container-cards-item" style="position:relative;border-radius: 10px;top:0%;left:0%;height: 250px;width: 200px;max-width: 90%;max-height: 90%">
+                                        </div>
+                                        <div class="col-md-7 center-card">
+                                            <div class="card-body bg-dark text-white center-card" style="font-size: small;position:relative;top:5%;right:0%;">
+                                                <h5 class="card-title text-truncate" style="font-size: medium;" data-toggle="tooltip" title="{{ a.livro.titulo }}">{{ a.livro.titulo }}</h5>
+                                                <p class="card-text text-truncate" data-toggle="tooltip" title="{{ a.livro.editora }}">Editora: {{ a.livro.editora }}</p>
+                                                <p class="card-text text-truncate" data-toggle="tooltip" title="{{ a.livro.autor }}">Autor: {{ a.livro.autor }}</p>
+                                                <a target="_blank" href="{% url 'info-livro' a.pk %}" class="btn btn-secondary m-auto zoom-bt" style=" border-color: #2374e1;background: #2374e1;font-size: medium;">Saiba Mais</a>
+                                            </div>
+                                        </div>
+                                </div>
+                                <br>
+                            </div>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3"> Nenhum livro encontrado!</td>
+                        </tr>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    <ul class="pagination justify-content-center">
+    
+        {% if page_obj.has_previous %}
+
+            {% if request.GET.nome %}
+                <li class="page-item"><a class="page-link" href="?page=1&nome={{request.GET.nome}}">&laquo; Primeira</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&nome={{request.GET.nome}}">Anterior</a></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page=1">&laquo; Primeira</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+            {% endif %}
+        {% endif %}
+    
+        <li class="page-item">
+            <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span></li>
+    
+        {% if page_obj.has_next %}
+            {% if request.GET.nome %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&nome={{request.GET.nome}}">Próxima</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&nome={{request.GET.nome}}">Última &raquo;</a></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Próxima</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a></li>
+            {% endif %}
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}
+
+{% block addcss %}
+<style>
+    .book-list {
+        margin-top: 50px;
+        visibility: visible;
+    }
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: auto;
+        margin-bottom: auto;
+        width: 50%;
+        height: 50%;
+    }       
+    .center-card {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: auto;
+        margin-bottom: auto;
+    }       
+</style>
+
+{% endblock %}
