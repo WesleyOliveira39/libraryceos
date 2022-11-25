@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block titulo %}
-    <title>EduTeca - Autores</title>
+    <title>Autores</title>
 {% endblock %}
 
 {% block barra %}
@@ -29,6 +29,7 @@
         <thead>
             <tr>
                 <th>Nome</th>
+                <th>Data de Nascimento</th>
                 <th>Currículo Lattes</th>
                 <th>Opções</th>
             </tr>
@@ -38,6 +39,7 @@
             {% for autor in object_list %}
             <tr>
                 <td>{{ autor.nome }}</td> 
+                <td>{{ autor.data_nascimento|date:"d/m/Y"}} </td>
                 <td>{{ autor.curriculo_lattes }}</td>
                 <td>
                     <a href="{% url 'atualizar-autor' autor.pk %}" class="btn btn-warning btn-sm" title="Atualizar"><i class="fa fa-pencil" aria-hidden="true"></i>

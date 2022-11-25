@@ -13,54 +13,38 @@
 {% endblock %}
 
 {% block conteudo %}
-        <div class="card bg-dark text-light text-justify m-auto col-11" style="padding: 20px;">
-            <h1 align="center">Quem somos</h1>
+        <div class="card bg-dark text-light text-center m-auto col-11" style="padding: 20px;">
+            <h1 align="center">Quem somos?</h1>
+            <br>
             <p>
-                O projeto EduTeca de integração dos Acervos das bibliotecas de
-                Indaiatuba foi elaborado e desenvolvido por uma equipe altamente qualificada,
+                O projeto LibraryCeos foi elaborado e desenvolvido por uma equipe altamente qualificada,
                 especializada, e por último e não menos importante, amante da boa leitura.
             </p>
-            <p>A equipe é composta pelo Lucas Dias Calado, Luís Fernando Bortolotti,
-                Wesley Henrique Faveri De Oliveira, alunos do quarto semestre do curso de
-                Análise e Desenvolvimento de Sistemas da Fatec-Indaiatuba.
+            <p>A equipe é composta por Lucas Calado e Wesley Henrique, graduandos do curso de Análise e Desenvolvimento de Sistemas da Fatec de Indaiatuba/SP.
             </p>
         </div>
-
-
-    <!-- Parte opcional, se for deixar ACho que seria melhor tirar o segundo trecho do texto acima-->
     <br>
-    <h2 style="text-align:center">Nosso time</h2>
+    <h2 style="text-align:center">Nosso Time</h2>
     <div class="row">
         <div class="column">
             <div class="card bg-dark text-light text-sm-center">
-                <img src="{% static 'img/personaWesley.bmp' %}" alt="Jane" style="border-radius: 5px;position: relative;height: 90%;width:90%;left: 5%;top: 15px;">
+                <img src="{% static 'assets/img/personaWesley.bmp' %}" alt="Jane" style="border-radius: 15px;position: center;height: 30%;width:30%;left: 5%;top: 15px;">
                 <div class="container">
                     <br>
-                    <h2 style="font-size:x-large;">Wesley Henrique Faveri</h2>
-                    <p class="title">Analista de sistemas</p>
-                    <p>wesley.henrique@eduteca.com</p>
+                    <h2 style="font-size:x-large;">Wesley Henrique</h2>
+                    <p class="title">Analista de Sistemas</p>
+                    <p>wesley.henrique@libraryceos.com</p>
                 </div>
             </div>
         </div>
         <div class="column">
             <div class="card bg-dark text-light text-sm-center">
-                <img src="{% static 'img/personaLuis.bmp' %}" alt="Jane" style="border-radius: 5px;position: relative;height: 90%;width:90%;left: 5%;top: 15px;">
+                <img src="{% static 'assets/img/personaLucas.bmp' %}" alt="Jane" style="border-radius: 15px;position: center;height: 30%;width:30%;left: 5%;top: 15px;">
                 <div class="container">
                     <br>
-                    <h2 style="font-size:x-large;">Luis Fernando Bortolotti</h2>
-                    <p class="title">Analista de sistemas</p>
-                    <p>luis.fernando@eduteca.com</p>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="card bg-dark text-light text-sm-center">
-                <img src="{% static 'img/personaLucas.bmp' %}" alt="Jane" style="border-radius: 5px;position: relative;height: 90%;width:90%;left: 5%;top: 15px;">
-                <div class="container">
-                    <br>
-                    <h2 style="font-size: x-large;">Lucas Dias Calado</h2>
-                    <p class="title">Analista de sistemas</p>
-                    <p>lucas.dias@eduteca.com</p>
+                    <h2 style="font-size: x-large;">Lucas Calado</h2>
+                    <p class="title">Analista de Sistemas</p>
+                    <p>lucas.dias@libraryceos.com</p>
                 </div>
             </div>
         </div>
@@ -89,15 +73,16 @@
         }
 
         .column {
-            float: left;
-            width: 33.3%;
-            margin-bottom: 16px;
+            width: 33%;
+            margin: auto;
+            border: 3px solid orange;
             padding: 0 8px;
         }
 
-        .card {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            margin: 8px;
+        .card{
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .about-section {

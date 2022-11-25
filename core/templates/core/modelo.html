@@ -9,32 +9,23 @@
     {% block titulo %}
     <title>Modelo</title>
     {% endblock %}
-
-    <!--<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">-->
-    <link rel="icon" href="{% static 'assets/img/logo-lc.png' %}" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-	1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"
-    />
-    <link href="{% static 'assets/css/carousel.css' %}" rel="stylesheet" />
-    <link
-      href="{% static 'assets/css/footer-with-button-logo.css' %}"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.css"
-    />
-
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-	1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.css" />
+    
+    <link href="{% static 'assets/css/footer-with-button-logo.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'assets/css/datatables.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/base.css' %}">
-    {% block linkCSS %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'assets/css/select2.min.css' %}">
+    <link rel="icon" href="{% static 'assets/img/logo-lc.png' %}" />
+  
+    {% block linkCSS %}
+    <link href="{% static 'assets/css/carousel.css' %}" rel="stylesheet" />
+    {% endblock %}
+
+    {% block headerConteudo %}{% endblock %}
   </head>
 
   <body>
@@ -111,18 +102,34 @@
                   >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="{% url 'listar-generos' %}"
-                    >Gêneros</a
-                  >
-                </li>
-                <li>
                   <a class="dropdown-item" href="{% url 'listar-livros' %}"
                     >Livros</a
                   >
                 </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >Interno</a
+              >
+              <ul
+                class="dropdown-menu bg-dark dropdown-menu-dark"
+                aria-labelledby="navbarDropdown"
+              >
                 <li>
-                  <a class="dropdown-item" href="{% url 'listar-acervos' %}"
-                    >Acervo</a
+                  <a class="dropdown-item" href="{% url 'listar-autores' %}"
+                    >Exemplares</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'listar-autores' %}"
+                    >Empréstimos</a
                   >
                 </li>
               </ul>
@@ -150,7 +157,10 @@
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 <a class="dropdown-item" href="{% url 'atualizarDados' %}">
-                  <i class="fa fa-user" aria-hidden="true"></i>Meus dados</a
+                  <i class="fa fa-user" aria-hidden="true"></i> Meus dados</a
+                >
+                <a class="dropdown-item" href="{% url 'alterar-senha' %}">
+                  <i class="fa fa-key" aria-hidden="true"></i> Alterar Senha</a
                 >
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{% url 'logout' %}">
@@ -297,6 +307,66 @@
     {% block conteudo %} {% endblock %}
     <!-- bloco para inserir conteúdo -->
 
+    {% block scriptBlock %} {% endblock %}
+
+    {% block modal %} 
+    <div class="modal fade" id="uni_modal" role='dialog'>
+        <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-sm btn-flat btn-primary rounded-0" id='submit' onclick="$('#uni_modal form').submit()">Save</button>
+                    <button type="button" class="btn btn-sm btn-flat btn-light border rounded-0" data-bs-dismiss="modal">Cancel</button>
+                </div>
+                <div class="modal-sub-footer">
+                    <button type="button" class="btn btn-sm btn-flat btn-light border rounded-0" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirm_modal" role='dialog'>
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmation</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="delete_content"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-flat btn-primary rounded-0" id='confirm' onclick="">Continue</button>
+                    <button type="button" class="btn btn-sm btn-flat btn-light border rounded-0" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="viewer_modal" role='dialog'>
+        <div class="modal-dialog modal-fullscreen" role="document">
+            <div class="modal-content rounded-0 bg-transparent">
+                <div class="modal-body bg-transparent d-flex flex-column w-100 h-100 align-items-center justify-content-center">
+                    <div class="text-end w-100 px-5">
+                        <a class="text-decoration-none text-light" href="javascript:void(0)" data-bs-dismiss="modal"><i class="fa fa-times fs-3"></i></a>
+                    </div>
+                    <div id="img-viewer" class="w-75 h-75 bg-dark overflow-auto">
+                        <img src="" class="image-thumbnail" id="img-viewer-field" />
+                    </div>
+                    <div class="w-25 d-flex justify-content-center pt-3">
+                        <div class="input-group mb-3">
+                            <button class="btn btn-dark bg-gradient btn-sm text-light" type="button" id="zoom-minus"><i class="fa fa-minus"></i></button>
+                            <input type="text" id="zoom-value" class="form-control form-control-sm rounded-0 w-25 bg-dark bg-gradient border-dark text-light text-center" value="100" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" readonly>
+                            <button class="btn btn-dark bg-gradient btn-sm text-light" type="button" id="zoom-plus"><i class="fa fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
     {% block rodape %}
     <br />
     <footer id="myFooter" class="bg-dark text-light">
@@ -317,13 +387,13 @@
             <ul>
               <li><a href="{% url 'home' %}">Inicio</a></li>
               <li><a href="{% url 'sobre' %}">Projeto</a></li>
-              <li><a href="{% url 'parceria' %}">Parceria</a></li>
+              <li><a href="{% url 'parceria' %}">Parcerias</a></li>
             </ul>
           </div>
           <div class="col-sm-2">
             <h5>Sobre-nós</h5>
             <ul>
-              <li><a href="{% url 'desenvolvedor' %}">Desenvolvedores</a></li>
+              <li><a href="{% url 'desenvolvedor' %}">Equipe</a></li>
             </ul>
           </div>
           <div class="col-sm-2">
@@ -471,30 +541,110 @@
 
     {% block addcss %}{% endblock %}
     <!-- bloco para inserir mais estilos css -->
-
-    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script>
-      window.jQuery ||
-        document.write(
-          '<script src="https://code.jquery.com/jquery-3.3.1.min.js"><\/script>'
-        );
-    </script>
+    
+    <script src="{% static 'assets/default/js/jquery-3.6.0.min.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
-    <script src="{% static 'js/carousel.js' %}"></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.js"
-    ></script>
+      crossorigin="anonymous"></script>
+    <script src="{% static 'assets/js/datatables.min.js' %}"></script>
 
+    <script type="text/javascript" src="{% static 'assets/js/script.js' %}"></script>
+	  <script src="{% static 'assets/js/select2.min.js' %}"></script>
     <script src="{% static 'assets/js/custom.js' %}"></script>
-    {% block scriptJS %} {% endblock %}
+    
+    {% block scriptJS %}
+    <script src="{% static 'assets/js/carousel.js' %}"></script>
+    {% endblock %}
     <!-- Block destinado a inclusao de scripts -->
+
+    {% block scriptModal %}
+    <script>
+        const loader = $('<div>')
+        loader.attr('id', 'pre-loader')
+        loader.html('<div class="lds-facebook"><div></div><div></div><div></div></div>')
+
+        window.start_loader = function() {
+            $('body').removeClass('loading')
+            if ($('#pre-loader').length > 0)
+                $('#pre-loader').remove();
+            $('body').append(loader)
+            $('body').addClass('loading')
+        }
+        window.end_loader = function() {
+            if ($('#pre-loader').length > 0)
+                $('#pre-loader').remove();
+            $('body').removeClass('loading')
+        }
+        window.uni_modal = function($title = '', $url = '', $size = "") {
+            start_loader()
+            $.ajax({
+                url: $url,
+                error: err => {
+                    console.log()
+                    alert("An error occured")
+                },
+                success: function(resp) {
+                    if (resp) {
+                        $('#uni_modal .modal-title').html($title)
+                        $('#uni_modal .modal-body').html(resp)
+                        if ($size != '') {
+                            $('#uni_modal .modal-dialog').addClass($size + '  modal-dialog-centered')
+                        } else {
+                            $('#uni_modal .modal-dialog').removeAttr("class").addClass("modal-dialog modal-md modal-dialog-centered")
+                        }
+                        $('#uni_modal').modal({
+                            backdrop: 'static',
+                            keyboard: false,
+                            focus: true
+                        })
+                        $('#uni_modal').modal('show')
+                        end_loader()
+                    }
+                }
+            })
+        }
+        window._conf = function($msg = '', $func = '', $params = []) {
+            $('#confirm_modal #confirm').attr('onclick', $func + "(" + $params.join(',') + ")")
+            $('#confirm_modal .modal-body').html($msg)
+            $('#confirm_modal').modal('show')
+        }
+
+        $(function() {
+            $('#viewer_modal').on('shown.modal.bs', function() {
+                $('#zoom-value').val(100)
+                $('#img-viewer img').css(
+                    'transform',
+                    'scale(1)'
+                )
+
+            })
+            $('#zoom-plus').click(function() {
+                var scale = parseFloat($('#zoom-value').val())
+                if (scale >= 200) return false;
+                scale += 10
+                $('#zoom-value').val(scale)
+                scale = scale / 100
+                $('#img-viewer img').css(
+                    'transform',
+                    'scale(' + (scale) + ')'
+                )
+            })
+            $('#zoom-minus').click(function() {
+                var scale = parseFloat($('#zoom-value').val())
+                if (scale <= 0) return false;
+                scale -= 10
+                $('#zoom-value').val(scale)
+                scale = scale / 100
+                $('#img-viewer img').css(
+                    'transform',
+                    'scale(' + (scale) + ')'
+                )
+            })
+
+        })
+    </script>
+    {% endblock %}
   </body>
 </html>

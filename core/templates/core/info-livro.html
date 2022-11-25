@@ -1,7 +1,11 @@
 {% extends 'core/modelo.html' %} {% load static %} {% block titulo %}
 <title>{{ livro.titulo }}</title>
 <link href="{% static 'assets/css/estilo-info-livro.css' %}" rel="stylesheet" />
-{% endblock %} {% block carrossel %} {% endblock %} {% block conteudo %}
+{% endblock %} 
+{% block carrossel %}{% endblock %} 
+
+
+{% block conteudo %}
 <div
   class="card col-11 m-auto bg-dark"
   style="border-radius: 10px; padding: 20px"
@@ -86,8 +90,8 @@
   <ul>
     <li>
       <div class="right-content">
-        <h4>Eu<span>{{item.data_comentario|date:"d/m/Y"}}</span></h4>
-        <p>{{item.comentario}}</p>
+        <p1>Eu<span>{{item.data_comentario|date:"d/m/Y"}}</span></h4>
+        <p1>{{item.comentario}}</p1>
       </div>
     </li>
   </ul>
@@ -109,7 +113,7 @@
                 name="comentario"
                 rows="6"
                 id="message"
-                placeholder="Type your comment"
+                placeholder="Comente aqui"
                 required=""
               ></textarea>
             </fieldset>
@@ -117,7 +121,7 @@
           <div class="col-lg-12">
             <fieldset>
               <button type="submit" id="form-submit" class="main-button">
-                Submit
+                Enviar
               </button>
             </fieldset>
           </div>

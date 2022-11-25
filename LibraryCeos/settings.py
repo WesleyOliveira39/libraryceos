@@ -19,6 +19,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -26,16 +27,27 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    
+    #providers
+    'allauth.socialaccount.providers.google',
+    
     # 'nomedoapp.apps.NomedoappConfig',
     'core.apps.CoreConfig',
     'cadastros.apps.CadastrosConfig',
     'usuarios.apps.UsuariosConfig',
-    
+    'chat.apps.ChatConfig',
     
     'django_cleanup.apps.CleanupConfig',
     'crispy_forms',
     'django_filters',
+    'channels',
 ]
+
+SITE_ID = 1
 
 #Crispy_forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -69,6 +81,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'LibraryCeos.wsgi.application'
+ASGI_APPLICATION = 'LibraryCeos.asgi.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 
 # Database
@@ -81,6 +99,13 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -122,7 +147,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')               
 ]
-
 
 #Arquivos > Uploads
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")

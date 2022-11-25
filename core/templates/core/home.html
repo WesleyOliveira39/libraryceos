@@ -59,8 +59,8 @@
 
 {% block conteudo %}
 {% if request.user|is_group:"Leitores" %}
-    {% if user.perfil.nome_instituicao %} 
-        <h3>Seja bem vindo {{ user.perfil.nome_instituicao }}. </h3>
+    {% if user.perfil.nome %} 
+        <h3>Seja bem vindo {{ user.perfil.nome }}.</h3>
     {% else %} 
         <p>Cadastro imcompleto. Por favor, acesse <a href="{% url 'atualizarDados' %}">Meus Dados</a> para finalizar.</p>
     {% endif %}

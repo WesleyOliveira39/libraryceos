@@ -4,26 +4,25 @@ from .models import *
 
 # Classes que podem ser visualizados do painel admin
 class AutorAdmin (admin.ModelAdmin):
-    list_display = ('nome', 'curriculo_lattes',)
+    list_display = ('nome', 'data_nascimento',
+                    'data_falecimento', 'curriculo_lattes', 'rosto',)
+    list_editable = ('data_nascimento', 'data_falecimento', 'curriculo_lattes', 'rosto',)
     search_fields = ('nome', 'curriculo_lattes',)
     
-class AcervoAdmin (admin.ModelAdmin):
-    list_display = ('livro', 'qtdeExemplar', 'usuario',)
-    search_fields = ('livro', 'qtdeExemplar', 'usuario',) 
-
-class GeneroAdmin (admin.ModelAdmin):
+class CategoriaAdmin (admin.ModelAdmin):
     list_display = ('descricao',)
     search_fields = ('descricao',)
-    
+
 class LivroAdmin (admin.ModelAdmin):
     list_display = ('isbn','edicao','titulo','autor','ano','editora','categoria','num_page','capa',)
     list_editable = ('edicao','titulo','autor','ano','editora','categoria','num_page','capa',)
     search_fields = ('isbn','edicao','titulo','autor','ano','editora','categoria','num_page','capa',) 
 
-class CategoriaAdmin (admin.ModelAdmin):
-    list_display = ('genero','descricao',)
-    list_editable = ('descricao',)
-    search_fields = ('genero','descricao',) 
+
+class ExemplarAdmin (admin.ModelAdmin):
+    list_display = ('livro', 'identificador', 'status', 'localizacao',)
+    list_editable = ('identificador', 'status', 'localizacao',)
+    list_filter = ('status',)
 
 
 class ComentaAdmin (admin.ModelAdmin):
@@ -32,8 +31,8 @@ class ComentaAdmin (admin.ModelAdmin):
 
 
 admin.site.register(Autor, AutorAdmin)
-admin.site.register(Genero, GeneroAdmin)
 admin.site.register(Livro,LivroAdmin)
 admin.site.register(Categoria, CategoriaAdmin)
-admin.site.register(Acervo, AcervoAdmin)
+admin.site.register(Exemplar, ExemplarAdmin)
+admin.site.register(Borrow)
 admin.site.register(Comentario, ComentaAdmin)

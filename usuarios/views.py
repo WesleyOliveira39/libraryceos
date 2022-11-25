@@ -10,12 +10,11 @@ from .models import Perfil
 class UsuarioCreate(CreateView):
     template_name = "cadastros/form.html"
     form_class = UsuarioForm
-    #success_url = reverse_lazy('login')
-    success_url = reverse_lazy('index') 
+    success_url = reverse_lazy('login') 
    
     def form_valid(self, form):
 
-        grupo = get_object_or_404(Group, name="Biblioteca")
+        grupo = get_object_or_404(Group, name="Leitores")
 
         url = super().form_valid(form)
 
@@ -28,7 +27,7 @@ class UsuarioCreate(CreateView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        context['titulo'] = "Registros - Usuários"
+        context['titulo'] = "Registro de Usuário"
         context['botao'] = "Registrar"
 
         return context
@@ -36,8 +35,8 @@ class UsuarioCreate(CreateView):
 class PerfilUpdate(UpdateView):
     template_name = "cadastros/form.html"
     model = Perfil
-    fields = ["nome_instituicao", "cnpj", "telefone", "logradouro", "bairro", "cidade"]
-    success_url = reverse_lazy("index")
+    fields = ["nome", "telefone", "logradouro", "bairro", "cidade"]
+    success_url = reverse_lazy("home")
 
     def get_object(self, queryset=None):
         self.object = get_object_or_404(Perfil, usuario=self.request.user)
@@ -46,7 +45,7 @@ class PerfilUpdate(UpdateView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        context["titulo"] = "Dados da Biblioteca"
+        context["titulo"] = "Meus dados pessoais!"
         context["botao"] = "Atualizar"
 
         return context

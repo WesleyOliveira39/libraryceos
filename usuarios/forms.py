@@ -15,3 +15,9 @@ class UsuarioForm(UserCreationForm): #Formulário padrão para registro de Usuá
         if User.objects.filter(email=e).exists():
             raise ValidationError("O e-mail {} já está em uso.".format(e))
         return e
+    
+    def clean_username(self):  # Verificação de E-mail
+        e = self.cleaned_data['username']
+        if User.objects.filter(email=e).exists():
+            raise ValidationError("O username {} já está em uso.".format(e))
+        return e
