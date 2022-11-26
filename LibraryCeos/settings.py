@@ -13,7 +13,7 @@ SECRET_KEY = 'dn4!q!tvvyh7qy$wf**l7j#i^th-nd#%nul=3$kp+!59c%&=@!'
 #SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 #DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = []
@@ -160,7 +160,7 @@ USE_TZ = True
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-STATIC_URL = '/assets/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
