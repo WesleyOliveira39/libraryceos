@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: rgb(127, 170, 219);
+}
+
+.center{
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 0 2%;
+}
+
+.clear{clear: both}
+
+header{
+    background: black;
+    padding: 12px 0;
+}
+
+/*
+    Menu 1 - Header
+*/
+
+.header-left{
+    float: left
+}
+
+/* arrumar */
+.header-left img{
+    max-width: 120px
+}
+
+.menu-header{
+    display: inline-block;
+    margin-left: 30px;
+}
+
+.menu-header li{
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.menu-header a{
+    display: white;
+    text-decoration: none;
+}
