@@ -19,8 +19,7 @@ class AutorCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Autor
-    fields = ['nome', 'data_nascimento', 'data_falecimento',
-              'biografia', 'rosto', 'curriculo_lattes']
+    fields = ['nome', 'data_nascimento', 'data_falecimento', 'local_nascimento', 'biografia', 'rosto', 'curriculo_lattes']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-autores')
        
@@ -104,7 +103,7 @@ class AutorUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Autor
-    fields = ['nome', 'data_nascimento', 'data_falecimento', 'biografia', 'rosto', 'curriculo_lattes']
+    fields = ['nome', 'data_nascimento', 'data_falecimento', 'local_nascimento', 'biografia', 'rosto', 'curriculo_lattes']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-autores')
     
@@ -266,18 +265,24 @@ class LivroList(GroupRequiredMixin, LoginRequiredMixin, ListView):
         else:
             livros = Livro.objects.all()
         return livros
-    
-    def get_queryset(self): 
-        self.object_list = Livro.objects.filter(usuario=self.request.user) 
-        return self.object_list
-     
-
+      
 class ExemplarList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Exemplar
     template_name = 'cadastros/listas/exemplar.html'
     paginate_by = 20
+  
+    def get_queryset(self):
+        s = self.request.GET.get('seach')
+        if s:
+            multiple_q = Q(Q(livro__titulo__icontains=s) |
+                           Q(livro__isbn__icontains=s) | Q(identificador__icontains=s))
+            livros = Livro.objects.filter(multiple_q)
+        else:
+            livros = Livro.objects.all()
+        return livros
+  
   
     def get_queryset(self): #Sobrescreve o get_queryset de ListView
         #self.object_list = Material.objects.all() #Comportamento Padrão > Mostrar todos Users

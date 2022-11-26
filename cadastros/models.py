@@ -9,6 +9,7 @@ class Autor(models.Model):
     nome = models.CharField(max_length=70)
     data_nascimento = models.DateField()
     data_falecimento = models.DateField(null=True, blank=True)
+    local_nascimento = models.CharField(max_length=100)
     biografia = models.TextField(default="Biografia do Autor")
     rosto = ResizedImageField(
         size=[200, 292],

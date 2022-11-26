@@ -6,6 +6,12 @@
 {% endblock %}
 
 {% block barra %}
+<form action="?" method="GET">
+
+    <input type="text" name="seach" id="" value="{{ request.GET.seach }}" class="p-1 border" autocomplete="off" placeholder="ISBN, Identificador, Título">
+
+    <button type="submit" class="btn btn-success">Buscar</button>
+</form>
 {% endblock %}
 
 {% block carrossel %}
