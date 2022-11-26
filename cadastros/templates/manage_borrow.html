@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %}{% load customfilter %}
 <style>
     #borrow-img {
         max-width: 100%;
@@ -14,18 +14,18 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="mb-3">
-                    <label for="exemplar" class="control-label">Exemplar</label>
-                    <select type="text" id="exemplar" name="exemplar" class="form-select form-select-sm rounded-0" required>
+                    <label for="book" class="control-label">Book</label>
+                    <select type="text" id="book" name="book" class="form-select form-select-sm rounded-0" required>
                         {% if not borrow %}
                         <option value="" selected disabled></option>
                         {% else %}
                         <option value="" disabled></option>
                         {% endif %}
-                        {% for exemplar in exemplares %}
-                        {% if borrow.exemplar.id == exemplar.id %}
-                        <option value="{{exemplar.id}}" selected>{{exemplar}}</option>
+                        {% for book in books %}
+                        {% if borrow.book.id == book.id %}
+                        <option value="{{book.id}}" selected>{{book}}</option>
                         {% else %}
-                        <option value="{{exemplar.id}}">{{exemplar}}</option>
+                        <option value="{{book.id}}">{{book}}</option>
                         {% endif %}
                         {% endfor %}
                     </select>
@@ -33,32 +33,36 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="mb-3">
-                    <label for="user" class="control-label">Usuário</label>
-                    <select type="text" id="user" name="user" class="form-select form-select-sm rounded-0" required>
+                    <label for="student" class="control-label">Usuário</label>
+                    <select type="text" id="student" name="student" class="form-select form-select-sm rounded-0" required>
                         {% if not borrow %}
                         <option value="" selected disabled></option>
                         {% else %}
                         <option value="" disabled></option>
                         {% endif %}
-                        {% for user in users %}
-                        {% if borrow.user.id == user.id %}
-                        <option value="{{user.id}}" selected>{{user}}</option>
+            
+                        {% if request.user|is_group:"Leitores" %}
+                        {% else %} 
+                        {% for student in students %}
+                        {% if borrow.student.id == student.id %}
+                        <option value="{{student.id}}" selected>{{student}}</option>
                         {% else %}
-                        <option value="{{user.id}}">{{user}}</option>
+                        <option value="{{student.id}}">{{student}}</option>
                         {% endif %}
                         {% endfor %}
+                        {% endif %}
                     </select>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="mb-3">
-                    <label for="borrowing_date" class="control-label">Date Borrow</label>
+                    <label for="borrowing_date" class="control-label">Data de Retirada</label>
                     <input type="date" id="borrowing_date" name="borrowing_date" class="form-control form-control-sm rounded-0" value="{% if borrow %}{{borrow.borrowing_date|date:'Y-m-d'}}{% else %}{% now 'Y-m-d' %}{% endif %}" required>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="mb-3">
-                    <label for="return_date" class="control-label">Date to Return</label>
+                    <label for="return_date" class="control-label">Data para Devolução</label>
                     <input type="date" id="return_date" name="return_date" class="form-control form-control-sm rounded-0" value="{{borrow.return_date|date:'Y-m-d'}}" min="{% now 'Y-m-d' %}" required>
                 </div>
             </div>
@@ -67,14 +71,14 @@
                     <label for="status" class="control-label">Status</label>
                     <select type="text" id="status" name="status" class="form-select form-select-sm rounded-0" required>
                         {% if borrow.status == '1' %}
-                        <option value="1" selected>Pending</option>
+                        <option value="1" selected>Pendente</option>
                         {% else %}
-                        <option value="1">Pending</option>
+                        <option value="1">Pendente</option>
                         {% endif %}
                         {% if borrow.status == '2' %}
-                        <option value="2" selected>Returned</option>
+                        <option value="2" selected>OK</option>
                         {% else %}
-                        <option value="2">Returned</option>
+                        <option value="2">OK</option>
                         {% endif %}
                     </select>
                 </div>
@@ -85,13 +89,13 @@
 <script>
     $(function() {
         $('#uni_modal').on('shown.bs.modal', function(){
-            $('#user').select2({
+            $('#student').select2({
                 placeholder:"Selecione o usuário",
                 width:"100%",
                 dropdownParent:$('#uni_modal'),
                 selectionCssClass:"form-control form-control-sm rounded-0"
             })
-            $('#exemplar').select2({
+            $('#book').select2({
                 placeholder:"Selecione o exemplar",
                 width:"100%",
                 dropdownParent:$('#uni_modal'),
@@ -124,7 +128,7 @@
                 dataType: 'json',
                 error: err => {
                     console.log(err)
-                    alert("Erro 1", 'error');
+                    alert("An error occured", 'error');
                     end_loader();
                 },
                 success: function(resp) {
@@ -133,7 +137,7 @@
                     } else if (resp.status == 'failed' && !!resp.msg) {
                         el.text(resp.msg)
                     } else {
-                        el.text("Erro 2", 'error');
+                        el.text("An error occured", 'error');
                         end_loader();
                         console.err(resp)
                     }

@@ -76,13 +76,13 @@ class LivroCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
         return context   
      
 
-class AcervoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+class ExemplarCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Exemplar
-    fields = ['livro', 'qtdeExemplar']
+    fields = ['livro', 'identificador', 'status', 'localizacao',]
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('listar-acervos')   
+    success_url = reverse_lazy('listar-exemplares')   
     
     def form_valid(self, form): #Sobrescreve o form_valid de CreateView
         
@@ -156,13 +156,13 @@ class LivroUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         return context  
     
 
-class AcervoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+class ExemplarUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Exemplar
-    fields = ['livro', 'qtdeExemplar']
+    fields = ['livro', 'identificador', 'status', 'localizacao', ]
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('listar-acervos')
+    success_url = reverse_lazy('listar-exemplares')
     
     def get_object(self, queryset=None):  #Sobrescreve o get_object de UpdateView 
         self.object = get_object_or_404(
@@ -188,6 +188,7 @@ class AutorDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('listar-autores')
  
+ 
 class CategoriaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador"]
@@ -195,7 +196,7 @@ class CategoriaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('listar-categorias')
         
-
+        
 class LivroDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador"]
@@ -203,22 +204,21 @@ class LivroDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('listar-livros')
     
-
-class AcervoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+    
+class ExemplarDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Exemplar
     template_name = 'cadastros/form-excluir.html'
-    success_url = reverse_lazy('listar-acervos')
+    success_url = reverse_lazy('listar-exemplares')
     
     def get_object(self, queryset=None):  #Sobrescreve o get_object de DeleteView 
         self.object = get_object_or_404(
             Exemplar, pk=self.kwargs['pk'], usuario=self.request.user)  # kwargs = <int:pk>
         return self.object   
      
+     
 #ListView
-
-
 class AutorList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
@@ -272,11 +272,11 @@ class LivroList(GroupRequiredMixin, LoginRequiredMixin, ListView):
         return self.object_list
      
 
-class AcervoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+class ExemplarList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Exemplar
-    template_name = 'cadastros/listas/acervo.html'
+    template_name = 'cadastros/listas/exemplar.html'
     paginate_by = 20
   
     def get_queryset(self): #Sobrescreve o get_queryset de ListView
@@ -364,9 +364,10 @@ def manage_borrow(request, pk=None):
         context['borrow'] = {}
     else:
         context['borrow'] = models.Borrow.objects.get(id=pk)
-    context['perfils'] = models.User.objects.all()
-    context['books'] = models.Exemplar.objects.all()
+    context['students'] = models.User.objects.all()
+    context['books'] = models.Exemplar.objects.filter(status=1).all()
     return render(request, 'manage_borrow.html', context)
+
 
 @login_required
 def delete_borrow(request, pk=None):
@@ -383,6 +384,17 @@ def delete_borrow(request, pk=None):
             resp['msg'] = "Deleting Transaction Failed"
 
     return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+
+
+
+
+
+
+
+
+
 
 @login_required
 def addcomment(request, id):

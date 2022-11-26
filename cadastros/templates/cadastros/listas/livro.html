@@ -37,7 +37,7 @@
                 <td>{{ livro.titulo }}</td> 
                 <td>{{ livro.autor.nome }}</td>
                 {% if livro.capa %}                             
-                    <td><a href="{{ object.capa.url }}">Ver</a></td>
+                    <td><a href="{{ livro.capa.url }}">Ver</a></td>
                 {% else %}          
                     <td></td>
                 {% endif %}

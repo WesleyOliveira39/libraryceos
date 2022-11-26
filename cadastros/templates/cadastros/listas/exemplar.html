@@ -1,0 +1,53 @@
+{% extends 'core/modelo.html' %}
+{% load static %}
+
+{% block titulo %}
+    <title>Exemplares</title>
+{% endblock %}
+
+{% block barra %}
+{% endblock %}
+
+{% block carrossel %}
+{% endblock %}
+
+
+
+{% block conteudo %}
+<div class="col-md-10 mx-auto"> 
+    <br>
+    <h3>Registro - Exemplares</h3>
+    <a href="{% url 'cadastrar-exemplar' %}" class="btn btn-primary btn-sm ">Adicionar</a>
+    <hr>
+    <div class="table-responsive col-md-10 mx-auto">
+        <table class="table table-striped">
+            <tr>
+                <th>Livro</th>
+                <th>Identificador</th>
+                <th>Status</th>
+                <th>Opções</th>
+            </tr>
+
+            {% for exemplar in object_list %}
+            <tr>
+                <td>{{ exemplar.livro.titulo }}</td> 
+                <td>{{ exemplar.identificador }}</td>
+                <td>{{ exemplar.status }}</td>
+                <td>
+                    <a href="{% url 'atualizar-exemplar' exemplar.pk %}" class="btn btn-warning btn-sm" title="Atualizar"><i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                    <a href="{% url 'excluir-exemplar' exemplar.pk %}" class="btn btn-danger btn-sm" title="Excluir"><i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3"> Nenhum registro identificado!</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+</div>
+{% endblock %}
+

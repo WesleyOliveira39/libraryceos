@@ -54,6 +54,7 @@ class Livro(models.Model):
     )
     resumo = models.TextField(default="Resumo da Obra")
     consulta = models.PositiveIntegerField(default=1)
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
     class Meta:
         verbose_name_plural = "Livros"
@@ -66,29 +67,17 @@ class Exemplar(models.Model):
     livro = models.ForeignKey(Livro, on_delete=models.PROTECT)
     identificador = models.CharField(max_length=5)
     status = models.CharField(max_length=2, choices=(
-        ('1', 'Active'), ('2', 'Inactive')), default=1)
+        ('1', 'Disponível'), ('2', 'Indisponível')), default=1)
     localizacao = models.CharField(max_length=15, verbose_name="Localização", null=True, blank=True)
-
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
+    
     class Meta:
         verbose_name_plural = "Exemplares"
- 
-
-class Borrow(models.Model):
-    exemplar = models.ForeignKey(Exemplar, on_delete=models.CASCADE)
-    borrowing_date = models.DateField()
-    return_date = models.DateField()
-    status = models.CharField(max_length=2, choices=(
-        ('1', 'Pending'), ('2', 'Returned')), default=1)
-    date_added = models.DateTimeField(default=timezone.now)
-    date_created = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name_plural = "Empréstimos"
-
+        
     def __str__(self):
-        return str(f"{self.user.username}")
-
-    
+        return "{} - {}".format(self.livro.titulo, self.identificador)
+ 
+ 
 class Comentario(models.Model):
     STATUS = (
         ('Lido', 'Lido'),
@@ -106,3 +95,19 @@ class Comentario(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+class Borrow(models.Model):
+    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Exemplar, on_delete=models.CASCADE)
+    borrowing_date = models.DateField()
+    return_date = models.DateField()
+    status = models.CharField(max_length=2, choices=(
+        ('1', 'Pendente'), ('2', 'OK')), default=1)
+    date_added = models.DateTimeField(default=timezone.now)
+    date_created = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "Empréstimos"
+
+    def __str__(self):
+        return str(f"{self.usuario.username}")

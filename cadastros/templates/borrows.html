@@ -1,6 +1,23 @@
-{% extends 'core/modelo.html' %} {% load static %} 
+{% extends 'core/modelo.html' %} {% load static %}{% load customfilter %}
+{% block test1 %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/datatables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js" integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/datatables.min.js' %}"></script>
+    <script src="{% static 'assets/js/select2.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/script.js' %}"></script>
+{% endblock %}
+ {% block linkCSS %}{% endblock %}
 {% block carrossel %}
 {% endblock %}
+
 {% block conteudo %}
 <section class="py-4">
     <div class="container">
@@ -12,21 +29,21 @@
             <div class="card-body">
                 <div class="container-fluid">
                     <div class="text-end mb-3">
-                        <button class="btn btn-sm btn-primary rounded-0 bg-gradient-primary" type="button" id="create_new"><i class="fa fa-plus"></i> Adicionar</button>
+                        <button class="btn btn-sm btn-primary rounded-0 bg-gradient-primary" type="button" id="create_new"><i class="fa fa-plus"></i> Add New</button>
                     </div>
                     <table class="table table-bordered table-striped" id="borrow-tbl">
                         <colgroup>
                             <col width="5%">
                             <col width="15%">
-                            <col width="35%">
                             <col width="25%">
-                            <col width="10%">
+                            <col width="25%">
+                            <col width="20%">
                             <col width="10%">
                         </colgroup>
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
-                                <th class="text-center">Data</th>
+                                <th class="text-center">Registro</th>
                                 <th class="text-center">Exemplar</th>
                                 <th class="text-center">Usuário</th>
                                 <th class="text-center">Status</th>
@@ -40,13 +57,14 @@
                                 <td>{{ borrow.date_added|date:"Y-m-d h:i A"}}</td>
                                 <td>
                                     <div class="lh-1">
-                                        <div>{{ borrow.exemplar.livro.titulo}}</div>
-                                        <div>{{ borrow.exemplar.livro.isbn}}</div>
+                                        <div>{{ borrow.book.livro.isbn }} - {{ borrow.book.identificador }}</div>
+                                        <div>{{ borrow.book.livro.titulo}}</div>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="lh-1">
-                                        <div>{{ borrow.user.perfil.nome}}</div>
+                                        <div>{{ borrow.student.perfil.nome}}</div>
+                                        <div>{{ borrow.student.username}}</div>
                                     </div>
                                 </td>
                                 <td class="text-center">
@@ -60,9 +78,9 @@
                                           Ação
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="abtn{{borrow.pk}}">
-                                            <li><a class="dropdown-item view-data" href="javascript:void(0)" data-url="{% url 'view-borrow-pk' borrow.pk %}"><i class="fa fa-eye text-dark"></i> View</a></li>
-                                            <li><a class="dropdown-item edit-data" href="javascript:void(0)" data-url="{% url 'manage-borrow-pk' borrow.pk %}"><i class="fa fa-edit text-primary"></i> Edit</a></li>
-                                            <li><a class="dropdown-item delete-data" href="javascript:void(0)" data-url="{% url 'delete-borrow' borrow.pk %}"><i class="fa fa-trash text-danger"></i> Delete</a></li>
+                                            <li><a class="dropdown-item view-data" href="javascript:void(0)" data-url="{% url 'view-borrow-pk' borrow.pk %}"><i class="fa fa-eye text-dark"></i> Ver</a></li>
+                                            <li><a class="dropdown-item edit-data" href="javascript:void(0)" data-url="{% url 'manage-borrow-pk' borrow.pk %}"><i class="fa fa-edit text-primary"></i> Editar</a></li>
+                                            <li><a class="dropdown-item delete-data" href="javascript:void(0)" data-url="{% url 'delete-borrow' borrow.pk %}"><i class="fa fa-trash text-danger"></i> Deletar</a></li>
                                         </ul>
                                     </div>
                                 </td>
@@ -75,18 +93,17 @@
         </div>
     </div>
 </section>
-{% endblock %} 
-{% block ScriptBlock %}
+{% endblock %} {% block ScriptBlock %}
 <script>
     $(function() {
         $('#create_new').click(function() {
-            uni_modal("<i class='fa fa-plus'></i> Nova Transição", "{% url 'manage-borrow' %}", "modal-lg")
+            uni_modal("<i class='fa fa-plus'></i> Add New Transaction", "{% url 'manage-borrow' %}", "modal-lg")
         })
         $('.edit-data').click(function() {
-            uni_modal("<i class='fa fa-edit'></i> Atualizar detalhes do Empréstimo", $(this).attr('data-url'), "modal-lg")
+            uni_modal("<i class='fa fa-edit'></i> Edit Transaction Details", $(this).attr('data-url'), "modal-lg")
         })
         $('.view-data').click(function() {
-            uni_modal("<i class='fa fa-th-list'></i> Detalhes da Transição", $(this).attr('data-url'), "modal-lg")
+            uni_modal("<i class='fa fa-th-list'></i> Transaction Details", $(this).attr('data-url'), "modal-lg")
         })
         $('.view_image').click(function() {
             var img = $(this).attr('data-img-url')
@@ -94,7 +111,7 @@
             $('#viewer_modal').modal('show')
         })
         $('.delete-data').click(function() {
-            _conf("Tem certeza que deseja excluir esse registro?", 'delete_borrow', ["'" + $(this).attr('data-url') + "'"])
+            _conf("Are you sure to delete this Transaction?", 'delete_borrow', ["'" + $(this).attr('data-url') + "'"])
         })
         $('#borrow-tbl').find('td, th').addClass('px-2 py-1 align-middle')
         $('#borrow-tbl').DataTable({
@@ -147,4 +164,5 @@
     }
 </script>
 {% endblock %}
-
+{% block test %}{% endblock %}
+{% block scriptJS %}{% endblock %}
