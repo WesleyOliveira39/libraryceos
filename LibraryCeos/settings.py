@@ -13,8 +13,8 @@ SECRET_KEY = 'dn4!q!tvvyh7qy$wf**l7j#i^th-nd#%nul=3$kp+!59c%&=@!'
 #SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = config('DEBUG', cast=bool, default=False)
+DEBUG = True
+#DEBUG = config('DEBUG', cast=bool, default=False)
 
 
 ALLOWED_HOSTS = []  # ALTERAR EM CASO DE NOVA HOSPEDAGEM
@@ -28,7 +28,7 @@ ALLOWED_HOSTS = []  # ALTERAR EM CASO DE NOVA HOSPEDAGEM
 INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'grappelli',
-    #'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
