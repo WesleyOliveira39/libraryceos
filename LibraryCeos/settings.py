@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'channels',
 ]
 
-#SITE_ID = 1
+SITE_ID = 1
 
 #Crispy_forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -89,6 +89,15 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 
 WSGI_APPLICATION = 'LibraryCeos.wsgi.application'
 ASGI_APPLICATION = 'LibraryCeos.asgi.application'
