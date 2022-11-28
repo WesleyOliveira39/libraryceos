@@ -21,7 +21,7 @@ class UsuarioCreate(CreateView):
         self.object.groups.add(grupo)
         self.object.save()
         
-        Perfil.objects.create(usuario=self.object) #Cria-se um perfil, após criação do user
+        Perfil.objects.create(usuario=self.object.request.user) #Cria-se um perfil, após criação do user
         return url  
    
     def get_context_data(self, *args, **kwargs):
