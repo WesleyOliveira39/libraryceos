@@ -114,7 +114,12 @@
               <a class="nav-link" href="{% url 'autores' %}">Autores</a>
             </li>
 
-            {% if request.user.is_authenticated %}
+          {% if request.user.is_authenticated %}
+            {% if request.user|is_group:"Leitores" %}
+            <li class="nav-item">
+              <a class="dropdown-item" href="{% url 'borrow-page' %}">Empréstimos</a>
+            </li>
+            {% else %}
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -172,7 +177,9 @@
                 </li>
               </ul>
             </li>
-            {% else %} {% endif %}
+            {% endif %}
+          {% endif %}
+
           </ul>
           {% block barra %}{% endblock %} {% if request.user.is_authenticated %}
 
@@ -403,7 +410,7 @@
     </div>
 
     {% block chat %}
-    {% include "indexchat.html" %}
+    {% include "index.html" %}
     {% endblock %}
 
     {% block rodape %}
@@ -689,7 +696,6 @@
     {% block chatJS %}
 
 <script src="{% static 'assets/js/index.js' %}"></script>
-<script src="{% static 'assets/js/room.js' %}"></script>
 
 <script type="257be86a981729866f2fa61c-text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
