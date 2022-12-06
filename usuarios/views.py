@@ -3,7 +3,7 @@ from django.contrib.auth.models import User, Group
 from .forms import UsuarioForm
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
-from .models import Perfil
+from .models import *
 
 
 # Create your views here.
@@ -13,7 +13,7 @@ class UsuarioCreate(CreateView):
     success_url = reverse_lazy('login') 
    
     def form_valid(self, form):
-
+    
         grupo = get_object_or_404(Group, name="Leitores")
 
         url = super().form_valid(form)
@@ -21,8 +21,7 @@ class UsuarioCreate(CreateView):
         self.object.groups.add(grupo)
         self.object.save()
         
-        # Cria-se um perfil, após criação do user
-        Perfil.objects.create(usuario=self.request.user)
+        Perfil.objects.create(usuario=self.object) #Cria-se um perfil, após criação do user
         return url  
    
     def get_context_data(self, *args, **kwargs):

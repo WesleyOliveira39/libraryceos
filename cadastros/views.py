@@ -4,34 +4,37 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from .models import *
 from .forms import ComentarioForm
-from django.urls import reverse_lazy #Encaminhar users 
-from django.contrib.auth.mixins import LoginRequiredMixin #Controle de Acesso
-from braces.views import GroupRequiredMixin #Controle de funcionalidades por grupo de usuários - EX: Bibliotecas <> Administradores
-from django.shortcuts import get_object_or_404 #Página de Erro
-from django.db.models import Q  #Consultas complexas com objetos Q
+from django.urls import reverse_lazy  # Encaminhar users
+from django.contrib.auth.mixins import LoginRequiredMixin  # Controle de Acesso
+# Controle de funcionalidades por grupo de usuários - EX: Bibliotecas <> Administradores
+from braces.views import GroupRequiredMixin
+from django.shortcuts import get_object_or_404  # Página de Erro
+from django.db.models import Q  # Consultas complexas com objetos Q
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from cadastros import forms, models
 
+
 class AutorCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Autor
-    fields = ['nome', 'data_nascimento', 'data_falecimento', 'local_nascimento', 'biografia', 'rosto', 'curriculo_lattes']
+    fields = ['nome', 'data_nascimento', 'data_falecimento',
+              'local_nascimento', 'biografia', 'rosto', 'curriculo_lattes']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-autores')
-       
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
         context['titulo'] = "Cadastro - Autores"
         context['descricao'] = "Preenche os seguintes campos:"
         context['botao'] = "Cadastrar"
-      
+
         return context
-          
+
 
 class CategoriaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
@@ -39,53 +42,55 @@ class CategoriaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Categoria
     fields = ['descricao']
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('listar-categorias')   
-    
+    success_url = reverse_lazy('listar-categorias')
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
         context['titulo'] = "Cadastro - Categorias"
         context['descricao'] = "Preenche os seguintes campos:"
         context['botao'] = "Cadastrar"
-       
-        return context      
-    
+
+        return context
+
 
 class LivroCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Livro
-    fields = ['isbn', 'edicao', 'titulo', 'autor', 'ano', 'editora', 'num_page', 'categoria', 'capa', 'resumo']
+    fields = ['isbn', 'edicao', 'titulo', 'autor', 'ano',
+              'editora', 'num_page', 'categoria', 'capa', 'resumo']
     template_name = 'cadastros/form-upload.html'
     success_url = reverse_lazy('listar-livros')
-    
-    def form_valid(self, form): 
-        
-        form.instance.usuario = self.request.user 
+
+    def form_valid(self, form):
+
+        form.instance.usuario = self.request.user
         url = super().form_valid(form)
         return url
-    
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
         context['titulo'] = "Cadastro - Livros"
         context['descricao'] = "Preenche os seguintes campos:"
         context['botao'] = "Cadastrar"
-       
-        return context   
-     
+
+        return context
+
 
 class ExemplarCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Exemplar
-    fields = ['livro', 'identificador', 'status', 'localizacao',]
+    fields = ['livro', 'identificador', 'status', 'localizacao']
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('listar-exemplares')   
-    
-    def form_valid(self, form): #Sobrescreve o form_valid de CreateView
-        
-        form.instance.usuario = self.request.user #Criação do objeto e salvamento no BD
+    success_url = reverse_lazy('listar-exemplares')
+
+    def form_valid(self, form):  # Sobrescreve o form_valid de CreateView
+
+        # Criação do objeto e salvamento no BD
+        form.instance.usuario = self.request.user
         url = super().form_valid(form)
         return url
 
@@ -95,18 +100,46 @@ class ExemplarCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
         context['titulo'] = "Cadastro - Acervo"
         context['descricao'] = "Preenche os seguintes campos:"
         context['botao'] = "Cadastrar"
-       
-        return context  
+
+        return context
+
+
+class EmprestimoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Bibliotecas"]
+    model = Borrow
+    fields = ['student', 'book', 'borrowing_date', 'return_date']
+    template_name = 'cadastros/form.html'
+    success_url = reverse_lazy('listar-emprestimos')
+
+    def form_valid(self, form):  # Sobrescreve o form_valid de CreateView
+
+        # Criação do objeto e salvamento no BD
+        form.instance.usuario = self.request.user
+        url = super().form_valid(form)
+        return url
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = "Empréstimo"
+        context['descricao'] = "Preenche os seguintes campos:"
+        context['botao'] = "Cadastrar"
+
+        return context
+
+
 
 #UpdateView
 class AutorUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Autor
-    fields = ['nome', 'data_nascimento', 'data_falecimento', 'local_nascimento', 'biografia', 'rosto', 'curriculo_lattes']
+    fields = ['nome', 'data_nascimento', 'data_falecimento',
+              'local_nascimento', 'biografia', 'rosto', 'curriculo_lattes']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-autores')
-    
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
@@ -114,8 +147,9 @@ class AutorUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context['descricao'] = "Atualize os campos desejados:"
         context['icone'] = '<i class="fa fa-check" aria-hidden="true"></i>'
         context['botao'] = "Salvar"
-       
-        return context  
+
+        return context
+
 
 class CategoriaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
@@ -124,7 +158,7 @@ class CategoriaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     fields = ['descricao']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-generos')
-    
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
@@ -132,15 +166,16 @@ class CategoriaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context['descricao'] = "Atualize os campos desejados:"
         context['icone'] = '<i class="fa fa-check" aria-hidden="true"></i>'
         context['botao'] = "Salvar"
-       
-        return context  
+
+        return context
 
 
 class LivroUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Livro
-    fields = ['isbn', 'edicao', 'titulo', 'autor', 'ano', 'editora', 'num_page', 'categoria', 'capa', 'resumo']
+    fields = ['isbn', 'edicao', 'titulo', 'autor', 'ano',
+              'editora', 'num_page', 'categoria', 'capa', 'resumo']
     template_name = 'cadastros/form-upload.html'
     success_url = reverse_lazy('listar-livros')
 
@@ -151,9 +186,9 @@ class LivroUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context['descricao'] = "Atualize os campos desejados:"
         context['icone'] = '<i class="fa fa-check" aria-hidden="true"></i>'
         context['botao'] = "Salvar"
-       
-        return context  
-    
+
+        return context
+
 
 class ExemplarUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
@@ -162,12 +197,12 @@ class ExemplarUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     fields = ['livro', 'identificador', 'status', 'localizacao', ]
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-exemplares')
-    
-    def get_object(self, queryset=None):  #Sobrescreve o get_object de UpdateView 
+
+    def get_object(self, queryset=None):  # Sobrescreve o get_object de UpdateView
         self.object = get_object_or_404(
             Exemplar, pk=self.kwargs['pk'], usuario=self.request.user)  # kwargs = <int:pk>
         return self.object
-    
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
@@ -175,10 +210,28 @@ class ExemplarUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context['descricao'] = "Atualize os campos desejados:"
         context['icone'] = '<i class="fa fa-check" aria-hidden="true"></i>'
         context['botao'] = "Salvar"
-       
-        return context  
 
-         
+        return context
+
+class EmprestimoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Bibliotecas"]
+    model = Borrow
+    fields = ['book', 'borrowing_date', 'return_date']
+    template_name = 'cadastros/form.html'
+    success_url = reverse_lazy('listar-emprestimos')
+
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = "Editar - Empréstimo"
+        context['descricao'] = "Atualize os campos desejados:"
+        context['icone'] = '<i class="fa fa-check" aria-hidden="true"></i>'
+        context['botao'] = "Salvar"
+
+        return context
+
 #DeleteView
 class AutorDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
@@ -186,37 +239,45 @@ class AutorDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Autor
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('listar-autores')
- 
- 
+
+
 class CategoriaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador"]
     model = Categoria
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('listar-categorias')
-        
-        
+
+
 class LivroDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador"]
     model = Livro
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('listar-livros')
-    
-    
+
+
 class ExemplarDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Exemplar
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('listar-exemplares')
-    
-    def get_object(self, queryset=None):  #Sobrescreve o get_object de DeleteView 
+
+    def get_object(self, queryset=None):  # Sobrescreve o get_object de DeleteView
         self.object = get_object_or_404(
             Exemplar, pk=self.kwargs['pk'], usuario=self.request.user)  # kwargs = <int:pk>
-        return self.object   
-     
-     
+        return self.object
+
+
+class EmprestimoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Bibliotecas"]
+    model = Borrow
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('listar-emprestimos')
+
+
 #ListView
 class AutorList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
@@ -224,22 +285,23 @@ class AutorList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Autor
     template_name = 'cadastros/listas/autor.html'
     paginate_by = 20
-    
+
     def get_queryset(self):
         s = self.request.GET.get('seach')
         if s:
-            autores = Autor.objects.filter(nome__icontains=s) 
+            autores = Autor.objects.filter(nome__icontains=s)
         else:
             autores = Autor.objects.all()
         return autores
-    
+
+
 class CategoriaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Categoria
-    template_name = 'cadastros/listas/categoria.html' 
+    template_name = 'cadastros/listas/categoria.html'
     paginate_by = 20
-     
+
     def get_queryset(self):
         s = self.request.GET.get('seach')
         if s:
@@ -247,7 +309,7 @@ class CategoriaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
         else:
             categorias = Categoria.objects.all()
         return categorias
-     
+
 
 class LivroList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
@@ -255,7 +317,7 @@ class LivroList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Livro
     template_name = 'cadastros/listas/livro.html'
     paginate_by = 20
-    
+
     def get_queryset(self):
         s = self.request.GET.get('seach')
         if s:
@@ -265,29 +327,65 @@ class LivroList(GroupRequiredMixin, LoginRequiredMixin, ListView):
         else:
             livros = Livro.objects.all()
         return livros
-      
+
 class ExemplarList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Bibliotecas"]
     model = Exemplar
     template_name = 'cadastros/listas/exemplar.html'
     paginate_by = 20
-  
+
     def get_queryset(self):
         s = self.request.GET.get('seach')
         if s:
             multiple_q = Q(Q(livro__titulo__icontains=s) |
                            Q(livro__isbn__icontains=s) | Q(identificador__icontains=s))
-            livros = Livro.objects.filter(multiple_q)
+            exemplares = Exemplar.objects.filter(multiple_q)
         else:
-            livros = Livro.objects.all()
-        return livros
-  
-  
-    def get_queryset(self): #Sobrescreve o get_queryset de ListView
+            exemplares = Exemplar.objects.all()
+        return exemplares
+
+    def get_queryset(self):  # Sobrescreve o get_queryset de ListView
         #self.object_list = Material.objects.all() #Comportamento Padrão > Mostrar todos Users
-        self.object_list = Exemplar.objects.filter(usuario=self.request.user) 
+        self.object_list = Exemplar.objects.filter(usuario=self.request.user)
         return self.object_list
+    
+
+class EmprestimoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Bibliotecas"]
+    model = Borrow
+    template_name = 'cadastros/listas/emprestimo.html'
+    paginate_by = 20
+
+    def get_queryset(self):
+        s = self.request.GET.get('seach')
+        if s:
+            multiple_q = Q(Q(livro__titulo__icontains=s) | Q(status__icontains=s) |
+                           Q(livro__isbn__icontains=s) | Q(user__perfil__nome__icontains=s))
+            emprestimos = Borrow.objects.filter(multiple_q)
+        else:
+            emprestimos = Borrow.objects.all()
+        return emprestimos
+    
+    def get_queryset(self):  # Sobrescreve o get_queryset de ListView
+        #self.object_list = Material.objects.all() #Comportamento Padrão > Mostrar todos Users
+        self.object_list = Borrow.objects.filter(book__usuario=self.request.user)
+        return self.object_list
+
+@login_required
+def addcomment(request, id):
+    url = request.META.get('HTTP_REFERER')
+    if request.method == 'POST':
+        form = ComentarioForm(request.POST)
+        if form.is_valid():
+            data = Comentario()
+            data.comentario = form.cleaned_data['comentario']
+            data.user = request.user
+            data.livro_id = id
+            data.save()
+            return HttpResponseRedirect(url)
+    return HttpResponseRedirect(url)
 
 
 def context_data(request):
@@ -369,10 +467,11 @@ def manage_borrow(request, pk=None):
         context['borrow'] = {}
     else:
         context['borrow'] = models.Borrow.objects.get(id=pk)
-    context['students'] = models.User.objects.all()
-    context['books'] = models.Exemplar.objects.filter(status=1).all()
+    #livro = Livro.objects.get(pk=id)
+    #context['students'] = models.User.objects.filter(username=request.user)
+    #multiple_q = Q(Q(status__icontains=1) | Q(livro__id__icontains=livro))
+    context['books'] = models.Exemplar.objects.all()
     return render(request, 'manage_borrow.html', context)
-
 
 @login_required
 def delete_borrow(request, pk=None):
@@ -389,28 +488,3 @@ def delete_borrow(request, pk=None):
             resp['msg'] = "Deleting Transaction Failed"
 
     return HttpResponse(json.dumps(resp), content_type="application/json")
-
-
-
-
-
-
-
-
-
-
-
-
-@login_required
-def addcomment(request, id):
-    url = request.META.get('HTTP_REFERER')
-    if request.method == 'POST':
-        form = ComentarioForm(request.POST)
-        if form.is_valid():
-            data = Comentario()
-            data.comentario = form.cleaned_data['comentario']
-            data.user = request.user
-            data.livro_id = id
-            data.save()
-            return HttpResponseRedirect(url)
-    return HttpResponseRedirect(url)

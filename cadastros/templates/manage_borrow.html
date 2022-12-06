@@ -40,9 +40,6 @@
                         {% else %}
                         <option value="" disabled></option>
                         {% endif %}
-            
-                        {% if request.user|is_group:"Leitores" %}
-                        {% else %} 
                         {% for student in students %}
                         {% if borrow.student.id == student.id %}
                         <option value="{{student.id}}" selected>{{student}}</option>
@@ -50,7 +47,6 @@
                         <option value="{{student.id}}">{{student}}</option>
                         {% endif %}
                         {% endfor %}
-                        {% endif %}
                     </select>
                 </div>
             </div>
@@ -70,16 +66,7 @@
                 <div class="mb-3">
                     <label for="status" class="control-label">Status</label>
                     <select type="text" id="status" name="status" class="form-select form-select-sm rounded-0" required>
-                        {% if borrow.status == '1' %}
-                        <option value="1" selected>Pendente</option>
-                        {% else %}
-                        <option value="1">Pendente</option>
-                        {% endif %}
-                        {% if borrow.status == '2' %}
-                        <option value="2" selected>OK</option>
-                        {% else %}
-                        <option value="2">OK</option>
-                        {% endif %}
+                        <option value="1">Pendente</option>                       
                     </select>
                 </div>
             </div>

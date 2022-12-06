@@ -13,11 +13,11 @@ SECRET_KEY = 'dn4!q!tvvyh7qy$wf**l7j#i^th-nd#%nul=3$kp+!59c%&=@!'
 #SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
 #DEBUG = config('DEBUG', cast=bool, default=False)
-
-
-ALLOWED_HOSTS = []  # ALTERAR EM CASO DE NOVA HOSPEDAGEM
+DEBUG = True
+ALLOWED_HOSTS = ['http://127.0.0.1:8000/']
+#ALLOWED_HOSTS = []  # ALTERAR EM CASO DE NOVA HOSPEDAGEM
 
 #RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 #if RENDER_EXTERNAL_HOSTNAME:    
@@ -26,27 +26,26 @@ ALLOWED_HOSTS = []  # ALTERAR EM CASO DE NOVA HOSPEDAGEM
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.staticfiles',
+    
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.contrib.sites',
-    
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    #providers
-    'allauth.socialaccount.providers.google',
-    
+       
     # 'nomedoapp.apps.NomedoappConfig',
     'core.apps.CoreConfig',
     'cadastros.apps.CadastrosConfig',
     'usuarios.apps.UsuariosConfig',
     'chat.apps.ChatConfig',
+    
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     
     'django_cleanup.apps.CleanupConfig',
     'crispy_forms',
@@ -70,9 +69,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_SSL_REDIRECT = True
 
+ACCOUNT_FORMS = {
+    'signup': 'yourapp.forms.CustomSignupForm',
+}
 
 ROOT_URLCONF = 'LibraryCeos.urls'
 
@@ -87,19 +89,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media'
             ],
         },
     },
 ]
-
-AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
 
 WSGI_APPLICATION = 'LibraryCeos.wsgi.application'
 ASGI_APPLICATION = 'LibraryCeos.asgi.application'
@@ -120,16 +114,15 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+
 #DATABASES = {
 #    'default': dj_database_url.config(default='postgresql://postgres:postgres@localhost:5432/libraryceos', conn_max_age=600)}
 
-#AUTHENTICATION_BACKENDS = [
-
-#    'django.contrib.auth.backends.ModelBackend',
-
-    
-#    'allauth.account.auth_backends.AuthenticationBackend',
-#]
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -187,8 +180,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 #Arquivos > Uploads
-MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
-MEDIA_URL = "/uploads/" #Visualizar imagens
+MEDIA_URL = "/uploads/"  # Visualizar imagens
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 #Configurações de Autenticação
 LOGIN_REDIRECT_URL = 'home'

@@ -14,7 +14,6 @@
     <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'assets/js/script.js' %}"></script>
 {% endblock %}
- {% block linkCSS %}{% endblock %}
 {% block carrossel %}
 {% endblock %}
 
@@ -54,7 +53,7 @@
                             {% for borrow in borrows %}
                             <tr>
                                 <td class="text-center">{{ forloop.counter }}</td>
-                                <td>{{ borrow.date_added|date:"Y-m-d h:i A"}}</td>
+                                <td>{{ borrow.date_added|date:"d-m-Y h:i"}}</td>
                                 <td>
                                     <div class="lh-1">
                                         <div>{{ borrow.book.livro.isbn }} - {{ borrow.book.identificador }}</div>
@@ -63,7 +62,6 @@
                                 </td>
                                 <td>
                                     <div class="lh-1">
-                                        <div>{{ borrow.student.perfil.nome}}</div>
                                         <div>{{ borrow.student.username}}</div>
                                     </div>
                                 </td>

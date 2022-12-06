@@ -6,7 +6,6 @@ from django.contrib.auth.models import Group
 
 register = template.Library()
 
-
 @register.filter
 def replaceBlank(value,stringVal = ""):
     value = str(value).replace(stringVal, '')

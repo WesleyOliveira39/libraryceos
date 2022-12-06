@@ -153,9 +153,7 @@ a:focus {
     outline: none;
     text-decoration: none
 }
-button:focus, textarea, textarea:focus {
-    outline: none;
-}
+
 .btn-link:hover {
     text-decoration: none
 }
