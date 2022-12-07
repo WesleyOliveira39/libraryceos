@@ -12,38 +12,14 @@
       Gênero
     </a>
     <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
-
-      {% with ''|center:3 as range %}
-      {% for x in range %}
       <!-- generos-->
+         {% for cat in categoria %}
         <li>
             <!-- inicio do botao do dropdown interno -->
-            <a class="dropdown-item estilo-hover text-light" href="#">
-                {{forloop.counter}} &raquo;
-            </a>
-
-
-            <ul class="dropdown-menu bg-dark text-light dropdown-submenu">
-                {% with ''|center:3 as range2 %}
-                {% for y in range2 %}
-                    <!-- categorias-->
-
-                    <!-- inicio dos itens do submenu -->
-
-                    <li>
-                        <a class="dropdown-item estilo-hover text-light"
-                        href="http://127.0.0.1:8000/?titulo=exemplo {{forloop.counter}}">exemplo {{forloop.counter}}</a>
-                    </li>
-
-                {% endfor %}
-                {% endwith %}
-            </ul>
-
+            <a class="dropdown-item estilo-hover text-light" href="{{cat.id}}">{{cat.descricao}}</a>
             <!-- fim do botao do dropdown interno -->
-
         </li>
         {% endfor %}
-        {% endwith %}
     </ul>
 </li>
 <form action="?" method="GET">

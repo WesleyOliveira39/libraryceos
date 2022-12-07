@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.generic import TemplateView
 from cadastros.models import *
@@ -20,6 +20,12 @@ class InicioView(ListView):
     template_name = "core/home.html"
     paginate_by = 10
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context ['livro_list'] = Livro.objects.all().order_by("-id")
+        context ['categoria'] = Categoria.objects.all()
+        return context
+    
     def get_queryset(self):
         s = self.request.GET.get('seach')
         if s:
@@ -29,14 +35,8 @@ class InicioView(ListView):
         else:
             livros = Livro.objects.all()
         return livros
-
-    #Ordenar com base no último cadastro
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['livro_list'] = Livro.objects.all().order_by("-id")
-        return context
-
-
+    
+    
 def livro_info(request, id):
     livro = Livro.objects.get(pk=id)
     livro.consulta += 1
@@ -52,6 +52,7 @@ def livro_info(request, id):
         'total': total}
 
     return render(request, 'core/info-livro.html', context)
+
 
 #class LivroInfoView (DetailView):
 #    model = Livro
