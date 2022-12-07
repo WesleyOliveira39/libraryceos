@@ -50,12 +50,16 @@
                 <button type="submit" class="btn btn-primary mt-3">Login</button>
             </form>
     </div>
+
+    {% get_providers as socialaccount_providers %}
+    {% if socialaccount_providers %}
     <p class="social-text">Ou acesse com sua rede social:</p>
             <div class="social-media">
-              <a href="" class="social-icon">
-                <i class="fab fa-google"></i>
-              </a>
+                <ul class="socialaccount_providers">
+                {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                </ul><i class="fab fa-google"></i>
             </div>
+    {% endif %}
     <div class="col-md-12 mx-auto text-center" style="font-size: larger;">
       <p>
         Não tem uma conta? 
@@ -64,27 +68,6 @@
     </div>
     {% endif %}
 </div>
-
-{% get_providers as socialaccount_providers %}
-
-{% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
-
-<div class="socialaccount_ballot">
-
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
-
-  <div class="login-or">{% trans 'or' %}</div>
-
-</div>
-
-{% include "socialaccount/snippets/login_extra.html" %}
-{% endif %}
-
 {% endblock %}
 
 
