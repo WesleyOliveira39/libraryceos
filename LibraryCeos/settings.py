@@ -26,7 +26,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    
+    'channels',
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'crispy_forms',
     'django_filters',
-    'channels',
 ]
 
 SITE_ID = 1

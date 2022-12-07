@@ -9,7 +9,7 @@ import chat.routing
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LibraryCeos.settings')
 
 application = ProtocolTypeRouter({
-    'http': get_asgi_application(),
+    'https': get_asgi_application(),
     'websocket': AuthMiddlewareStack( #Autenticação
         URLRouter(
             chat.routing.websocket_urlpatterns

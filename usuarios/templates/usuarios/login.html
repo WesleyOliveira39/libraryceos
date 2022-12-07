@@ -1,6 +1,9 @@
 {% extends 'core/modelo.html' %}
 {% load static %}
 
+{% load i18n %}
+{% load account socialaccount %}
+{% load socialaccount %}
 {% load crispy_forms_tags %}
 
 {% block titulo %}
@@ -10,8 +13,15 @@
 {% block carrossel %}
 {% endblock %}
 
+{% block linkCSS %}
+<script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+{% endblock %}
+
 {% block conteudo %}
-<div class="row col-8 mx-auto"> 
+<div class="row col-4 mx-auto"> 
 
 
     {% if request.user.is_authenticated %}
@@ -28,7 +38,7 @@
 
     {% else %}
 
-    <div class="col-m4 mx-auto">
+    <div class="col-m6 mx-auto">
         <h3>Login</h3>
         <hr>
             <form action="" method="POST">  
@@ -37,12 +47,48 @@
 
                 {{ form|crispy }}   
 
-                <button type="submit" class="btn btn-primary mt-3">Entrar</button>
+                <button type="submit" class="btn btn-primary mt-3">Login</button>
             </form>
+    </div>
+    <p class="social-text">Ou acesse com sua rede social:</p>
+            <div class="social-media">
+              <a href="" class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+            </div>
+    <div class="col-md-12 mx-auto text-center" style="font-size: larger;">
+      <p>
+        Não tem uma conta? 
+        <a href="{% url 'registrar' %}">Registre-se</a>
+      </p>
     </div>
     {% endif %}
 </div>
+
+{% get_providers as socialaccount_providers %}
+
+{% if socialaccount_providers %}
+<p>{% blocktrans with site.name as site_name %}Please sign in with one
+of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+
+<div class="socialaccount_ballot">
+
+  <ul class="socialaccount_providers">
+    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+  </ul>
+
+  <div class="login-or">{% trans 'or' %}</div>
+
+</div>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+{% endif %}
+
 {% endblock %}
 
-{% block carrosselCatalogo %}
+
+
+{% block scriptJS %}
+<script src="{% static 'assets/js/login.js' %}"></script>
 {% endblock %}

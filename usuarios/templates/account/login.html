@@ -3,27 +3,10 @@
 {% load i18n %}
 {% load account socialaccount %}
 
-{% block head_title %}{% trans "Login" %}{% endblock %}
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
 
-<div class="container">
-      <div class="forms-container">
-        <div class="signin-signup">
-           <form action="{% url 'account_login' %}" class="login" method="POST" >
-            {% csrf_token %}
-            <h2 class="title">Sign in</h2>
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" name="username" />
-            </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-               <input type="text" placeholder="Senha" name="password" />
-            </div>
-            <input type="submit" value="Login" class="btn solid" />
-            </form>
-         
 <h1>{% trans "Sign In" %}</h1>
 
 {% get_providers as socialaccount_providers %}
@@ -49,5 +32,15 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 <p>{% blocktrans %}If you have not created an account yet, then please
 <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
 {% endif %}
+
+<form class="login" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+  <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+</form>
 
 {% endblock %}
