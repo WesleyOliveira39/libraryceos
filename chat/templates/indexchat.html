@@ -1,0 +1,100 @@
+<div class="chat-screen">
+    <div class="chat-header">
+        <div class="chat-header-title">
+            CHAT - LibraryCeos
+        </div>
+        <div class="chat-header-option hide">
+            <span class="dropdown custom-dropdown">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
+                    <a class="dropdown-item end-chat" href="javascript:void(0);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bc32ef" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-power"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
+                        End Chat
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+    <div class="chat-mail">
+        <div class="row">
+            <div class="col-md-12 text-center mb-2">
+                <p>Seja bem-vindo ao nosso chat!👋</p>
+                <p>O que acha de bater um papo com outros leitores online aqui no momento?</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="roomInput">Digite um nome para entrar em uma sala já existente ou para criar uma nova:</label>
+                    <input type="text" class="form-control" id="roomInput" placeholder="Nome da sala">     
+                </div>
+            </div>
+            <div class="col-md-12">
+                    <label for="roomSelect">Salas</label>
+                    <select class="form-control" id="roomSelect">
+                        {% for room in rooms %}
+                            <option>{{ room }}</option>
+                        {% endfor %}
+                    </select>
+            </div>
+            <div class="col-md-12">
+                <br>
+                <br>
+                <button type="button" id="roomConnect" class="btn btn-primary btn-rounded btn-block">Conectar</button>
+            </div>
+        </div>
+    </div>
+<h1 class="hide">Responsive Timeline using Flexbox</h1>
+<div class="timeline hide">
+    <div class="timeline-item">
+        <div class="timeline-date">
+            <img src="stylesheet/images/cities/delhi.svg"/>
+            <div>
+                January 2019
+            </div>
+        </div>
+        <div class="timeline-content">
+            <h2>Journey Start <span>(Delhi)</span></h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad saepe nulla quibusdam ut. Beatae, facere sequi blanditiis porro suscipit tempore ipsam iste ipsa, culpa quam vero, dolorem cupiditate. Magni, numquam?<button type="button" class="visit">Visit ›</button><img src="stylesheet/images/cities/delhi.svg"/></p>
+            <br>
+            <i class="fas fa-rocket fa-icon"></i>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-date">
+            <img src="stylesheet/images/cities/lucknow.svg"/>
+            <div>
+                February 2019
+            </div>
+        </div>
+        <div class="timeline-content">
+            <h2>Nawabo ka Sehar<span>(Lucknow)</span></h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad saepe nulla quibusdam ut. Beatae, facere sequi blanditiis porro suscipit tempore ipsam iste ipsa, culpa quam vero, dolorem cupiditate. Magni, numquam?<button type="button" class="visit">Visit ›</button><img src="stylesheet/images/cities/lucknow.svg"/></p>
+
+            <br>
+            <i class="fas fa-graduation-cap fa-icon"></i>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-date">
+            <img src="stylesheet/images/cities/prayagraj.svg"/>
+            <div>
+                March 2019
+            </div>
+        </div>
+        <div class="timeline-content">
+            <h2>Devotional Place<span>(Prayagraj)</span></h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad saepe nulla quibusdam ut. Beatae, facere sequi blanditiis porro suscipit tempore ipsam iste ipsa, culpa quam vero, dolorem cupiditate. Magni, numquam?<button type="button" class="visit">Visit ›</button><img src="stylesheet/images/cities/prayagraj.svg"/></p>
+
+            <br>
+            <i class="fas fa-power-off fa-icon"></i>
+        </div>
+    </div>
+</div>
+
+
+

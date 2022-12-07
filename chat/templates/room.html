@@ -2,6 +2,7 @@
 {% load static %}{% load customfilter %}
 
 {% block barra %}{% endblock %}
+{% block carrossel %}{% endblock %}
 {% block conteudo %}
         <div class="container mt-3 p-5">
             <h2>Chat</h2>
@@ -9,10 +10,10 @@
                 <div class="col-12 col-md-8">
                     <div class="mb-2">
                         <label for="chatLog">Sala: {{ room.name }}</label>
-                        <textarea class="form-control" id="chatLog" readonly></textarea>
+                        <textarea class="form-control form-control-lg " id="chatLog" readonly style="height: 500px";></textarea>
                     </div>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="chatMessageInput" placeholder="Digite sua mensagem">
+                        <input type="text" class="form-control " id="chatMessageInput" placeholder="Digite sua mensagem">
                         <div class="input-group-append">
                             <button class="btn btn-success" id="chatMessageSend" type="button">Enviar</button>
                         </div>
@@ -20,7 +21,7 @@
                 </div>
                 <div class="col-12 col-md-4">
                     <label for="onlineUsers">Usuários Online</label>
-                    <select multiple class="form-control" id="onlineUsersSelector">
+                    <select multiple class="form-control" id="onlineUsersSelector" style="height: 500px">
                     </select>
                 </div>
             </div>

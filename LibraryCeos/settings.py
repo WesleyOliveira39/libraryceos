@@ -15,8 +15,8 @@ SECRET_KEY = 'dn4!q!tvvyh7qy$wf**l7j#i^th-nd#%nul=3$kp+!59c%&=@!'
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
 #DEBUG = config('DEBUG', cast=bool, default=False)
-DEBUG = False
-ALLOWED_HOSTS = ['https://libraryceos.herokuapp.com/']
+DEBUG = True
+ALLOWED_HOSTS = []
 #ALLOWED_HOSTS = []  # ALTERAR EM CASO DE NOVA HOSPEDAGEM
 
 #RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
