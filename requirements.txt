@@ -130,12 +130,14 @@ toml==0.10.2
 tomli==2.0.1
 tomlkit==0.11.5
 Twisted==22.10.0
+twisted-iocpsupport==1.0.2
 txaio==22.2.1
 typing_extensions==4.4.0
 tzdata==2022.6
 ua-parser==0.16.1
 urllib3==1.26.13
 user-agents==2.2.0
+websockets==10.4
 Werkzeug==2.1.2
 whitenoise==6.2.0
 wrapt==1.14.1
