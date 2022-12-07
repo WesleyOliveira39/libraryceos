@@ -14,8 +14,7 @@ from django.db.models import Q
 
 #class ModeloView(TemplateView): #Herança - Extends em Java
 #    template_name = "core/modelo.html"
-
-
+ 
 class InicioView(ListView):
     model = Livro
     template_name = "core/home.html"

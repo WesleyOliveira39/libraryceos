@@ -30,7 +30,9 @@
                 <span> {{ autor.data_nascimento }} </span>
                 ------
               </span>
+              {% if autor.data_falecimento %}
               <span>{{ autor.data_falecimento }}</span>
+              {% endif %}
             </div>
           </header>
           <br />
@@ -38,7 +40,9 @@
             <li>
               <span>Local de Nascimento: </span> <span>{{ autor.local_nascimento }}</span>
             </li>
+            {% if autor.curriculo_lattes %}
             <li><span>Currículo Lattes: </span><span>{{ autor.curriculo_lattes }} </span></li>
+            {% endif %}
           </ul>
           <div>
             <h4>Biografia:</h4>

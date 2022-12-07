@@ -14,15 +14,10 @@
 {% endblock %}
 
 {% block linkCSS %}
-<script
-      src="https://kit.fontawesome.com/64d58efce2.js"
-      crossorigin="anonymous"
-    ></script>
 {% endblock %}
 
 {% block conteudo %}
 <div class="row col-4 mx-auto"> 
-
 
     {% if request.user.is_authenticated %}
     <div class="alert alert-danger box col-8 mx-auto">
@@ -57,7 +52,7 @@
             <div class="social-media">
                 <ul class="socialaccount_providers">
                 {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-                </ul><i class="fab fa-google"></i>
+                </ul>
             </div>
     {% endif %}
     <div class="col-md-12 mx-auto text-center" style="font-size: larger;">

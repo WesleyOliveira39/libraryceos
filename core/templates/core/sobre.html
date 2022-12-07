@@ -2,47 +2,26 @@
 {% load static %}
 
 {% block titulo %}
-    <title>EduTeca - Projeto</title>
+    <title>Sobre nós</title>
 {% endblock %}
 
+{% block carrossel %}{% endblock %}
+
 {% block conteudo %}
-<div class="col-md-10 mx-auto ">
-    <br>
-    <div class="card bg-dark text-light text-justify m-auto card-text" style="border-radius: 10px;padding: 20px;">
-    <h2 align="center">Objetivo</h2>
-    <p>
-      
-    </p>
-    </div>
-    <br>
-    <div class="card bg-dark text-light tex m-auto" style="border-radius: 10px;text-align: center;padding: 20px;">
-    <h2>Sobre</h2>
-    <td>
-        <p align="justify"> 
-        </p>
-    </td>
-    <td>
-        <p align="justify">
-            
-        </p>
-    </td>
-    <td>
-        <p align="justify">
-           
-        </p>
-    </td>
-    <td>
-        <p align="justify">
-          
-        </p>
-    </td>
-    <td>
-        <p align="justify">
-            
-        </p>
-    </td>
-</div>
-</div>
+<div class="card bg-dark text-light tex m-auto" style="border-radius: 10px;text-align: center;padding: 20px;">
+    <h2>Projeto LibraryCeos</h2>
+
+    <div class="left">
+                        <p1 class="color-azul text-pq">O melhor sistema para gerenciamento de bibliotecas... Lorem ipsum dolor sit amet, consectetur 
+                            adipiscing elit, sed do eiusmod tempor incididunt ut labore 
+                            et dolore magna aliqua.</p1>
+                    </div>
+                    <div class="left">
+                        <div class="imagem">
+                            <img src="{% static 'assets/img/logo-noback.png' %}" alt="">
+                        </div>
+                    </div>
+                </div>
 {% endblock %}
 
 {% block addcss %}
