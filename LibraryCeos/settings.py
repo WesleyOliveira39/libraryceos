@@ -15,8 +15,8 @@ SECRET_KEY = 'dn4!q!tvvyh7qy$wf**l7j#i^th-nd#%nul=3$kp+!59c%&=@!'
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
 #DEBUG = config('DEBUG', cast=bool, default=False)
-DEBUG = True
-ALLOWED_HOSTS = ['http://127.0.0.1:8000/']
+DEBUG = False
+ALLOWED_HOSTS = ['https://libraryceos.herokuapp.com/']
 #ALLOWED_HOSTS = []  # ALTERAR EM CASO DE NOVA HOSPEDAGEM
 
 #RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
@@ -69,8 +69,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-#SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
 
 ACCOUNT_FORMS = {
     'signup': 'yourapp.forms.CustomSignupForm',
