@@ -1,0 +1,50 @@
+{% extends 'core/modelo.html' %}
+{% load static %}{% load crispy_forms_tags %}
+
+{% block titulo %}
+    <title>Registro</title>
+{% endblock %}
+
+{% block carrossel %}
+{% endblock %}
+
+{% block conteudo %}
+<div class="col-sm-6 mx-auto">
+    <hr>
+    <h3>{{ titulo }} </h3>
+    
+    <p class="lead">
+        {{ descricao }}
+    </p>
+
+    <hr>
+    <form class="form-horizontal" action="." method="POST">
+        
+        {% csrf_token %} 
+        {{ form|crispy }}
+
+    <br>
+     <label for="agree">
+        <input type="checkbox" value="0" name="agree" id="agree" required>
+        <b> Eu concordo com os <a target="_blank" href="{% static 'assets/pdf/LibraryCeos_Termo_Uso.pdf' %}">Termos de Uso</a> e <a target="_blank" href="{% static 'assets/img/personaWesley.bmp' %}">Política de Privacidade.</a></b>
+    </label>
+    <br>
+    <label for="agree_third_party">
+        <input type="checkbox" value="0" name="agree_third_party" id="agree_third_party" required>
+        <b> 
+Entendo que estou acessando um site de terceiros e cumprirei seus <a target="_blank" href="{% static 'assets/img/personaWesley.bmp' %}">Termos de Uso</a> e <a target="_blank" href="{% static 'assets/img/personaWesley.bmp' %}">Política de Privacidade.</a></b><br>
+    </label>
+
+        <button type="submit" class="btn btn-primary mt-3">
+        
+        {% autoescape off %}
+        {{ icone }}
+        {% endautoescape %}
+        {{ botao }}</button>
+
+
+    </form>
+</div>
+{% endblock %}
+
+

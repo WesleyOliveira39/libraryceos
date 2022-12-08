@@ -8,7 +8,7 @@ from .models import *
 
 # Create your views here.
 class UsuarioCreate(CreateView):
-    template_name = "cadastros/form.html"
+    template_name = "usuarios/formLogin.html"
     form_class = UsuarioForm
     success_url = reverse_lazy('login') 
    
