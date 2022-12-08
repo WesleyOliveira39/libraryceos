@@ -81,7 +81,11 @@
             <p1>{{ livro.resumo }}</p1>
           </div>
         </aside>
+        {% if request.user|is_group:"Leitores" %}
+          {% if user.perfil.nome %} 
           <button class="btn btn-sm btn-success rounded-0 bg-gradient-primary" type="button" id="create_new"><i class="fa fa-plus"></i> Reservar</button>
+          {% endif %} 
+        {% endif %} 
         </div>
     </article>
   </div>
@@ -215,7 +219,7 @@
 <script>
     $(function() {
         $('#create_new').click(function() {
-            uni_modal("<i class='fa fa-plus'></i> Add New Transaction", "{% url 'manage-borrow' %}", "modal-lg")
+            uni_modal("<i class='fa fa-plus'></i> Reserva de Livro", "{% url 'manage-borrow' %}", "modal-lg")
         })
         $('#borrow-tbl').find('td, th').addClass('px-2 py-1 align-middle')
         $('#borrow-tbl').DataTable({

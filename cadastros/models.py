@@ -107,17 +107,20 @@ class Comentario(models.Model):
 
 
 class Borrow(models.Model):
-    student = models.ForeignKey(User, on_delete=models.CASCADE)
-    book = models.ForeignKey(Exemplar, on_delete=models.CASCADE)
-    borrowing_date = models.DateField()
-    return_date = models.DateField()
+    student = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="Usuário")
+    book = models.ForeignKey(Exemplar, on_delete=models.CASCADE, verbose_name="Exemplar")
+    borrowing_date = models.DateField(verbose_name="Data de retirada")
+    return_date = models.DateField(verbose_name="Data de devolução")
     status = models.CharField(max_length=2, choices=(
         ('1', 'Pendente'), ('2', 'OK')), default=1)
-    date_added = models.DateTimeField(default=timezone.now)
-    date_created = models.DateTimeField(auto_now=True)
+    date_added = models.DateTimeField(
+        default=timezone.now, verbose_name="Horário de Criação")
+    date_created = models.DateTimeField(
+        auto_now=True, verbose_name="Data de criação")
 
     class Meta:
         verbose_name_plural = "Empréstimos"
 
     def __str__(self):
-        return str(f"{self.usuario.username}")
+        return str(f"{self.book.identificador}")

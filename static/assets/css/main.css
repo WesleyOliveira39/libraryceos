@@ -16,7 +16,7 @@ h1 {
 }
 
 h5 {
-    color: #ffffff;
+    color: #000000;
 }
 
 h2, h3, h4, h6 { color: #cd7e10; }
@@ -211,7 +211,7 @@ span.red {
 .form-control {
     height: auto;
     border: 1px solid #bfc9d4;
-    color: #3b3f5c;
+    color: #080808;
     font-size: 15px;
     letter-spacing: 1px;
     /*height: calc(1.4em + 1.4rem + 2px);*/
@@ -219,16 +219,16 @@ span.red {
     border-radius: 6px;
 }
 .form-control:focus {
-    box-shadow: 0 0 5px 2px rgba(194, 213, 255, 0.6196078431372549);
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.62);
     border-color: #1b55e2;
-    color: #3b3f5c;
+    color: #000000;
 }
-.form-control::-webkit-input-placeholder { color: #acb0c3; font-size: 15px; }
-.form-control::-ms-input-placeholder { color: #acb0c3; font-size: 15px; }
-.form-control::-moz-placeholder { color: #acb0c3; font-size: 15px; }
-.form-control:focus::-webkit-input-placeholder { color: #d3d3d3; font-size: 15px; }
-.form-control:focus::-ms-input-placeholder { color: #d3d3d3; font-size: 15px; }
-.form-control:focus::-moz-placeholder { color: #d3d3d3; font-size: 15px; }
+.form-control::-webkit-input-placeholder { color: #000000; font-size: 15px; }
+.form-control::-ms-input-placeholder { color: #000000; font-size: 15px; }
+.form-control::-moz-placeholder { color: #000000; font-size: 15px; }
+.form-control:focus::-webkit-input-placeholder { color: #000000; font-size: 15px; }
+.form-control:focus::-ms-input-placeholder { color: #000000; font-size: 15px; }
+.form-control:focus::-moz-placeholder { color: rgb(0, 0, 0); font-size: 15px; }
 .form-control.form-control-lg {
     font-size: 19px;
     padding: 11px 20px;;
@@ -244,7 +244,7 @@ span.red {
 .custom-select {
     height: auto;
     border: 1px solid #f1f2f3;
-    color: #3b3f5c;
+    color: #000000;
     font-size: 15px;
     padding: 8px 10px;
     letter-spacing: 1px;

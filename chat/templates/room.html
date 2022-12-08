@@ -1,6 +1,8 @@
 {% extends 'core/modelo.html' %}
 {% load static %}{% load customfilter %}
-
+{% block titulo %}
+    <title>{{ room.name }}</title>
+{% endblock %}
 {% block barra %}{% endblock %}
 {% block carrossel %}{% endblock %}
 {% block conteudo %}

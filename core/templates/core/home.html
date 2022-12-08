@@ -6,22 +6,24 @@
 {% endblock %}
 
 {% block barra %}
+<!-- generos
 <li class="nav-item nav-link dropdown">
     <a  style="color: rgba(255,255,255,.55)" class="nav-link dropdown-toggle" role="button" id="navbarDropdown" data-bs-toggle="dropdown"
       aria-expanded="false">
       Gênero
     </a>
     <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
-      <!-- generos-->
+    
          {% for cat in categoria %}
         <li>
-            <!-- inicio do botao do dropdown interno -->
+            
             <a class="dropdown-item estilo-hover text-light" href="{{cat.id}}">{{cat.descricao}}</a>
-            <!-- fim do botao do dropdown interno -->
+
         </li>
         {% endfor %}
     </ul>
 </li>
+-->
 <form action="?" method="GET">
 
     <input type="text" name="seach" id="" value="{{ request.GET.seach }}" class="p-1 border" autocomplete="on" placeholder="Título, Autor, Editora...">
@@ -58,7 +60,7 @@
                                         </div>
                                         <div class="col-md-7 center-card">
                                             <div class="card-body bg-dark text-white center-card" style="font-size: small;position:relative;top:5%;right:0%;">
-                                                <h5 class="card-title text-truncate" style="font-size: medium;" data-toggle="tooltip" title="{{ livro.titulo }}">{{ livro.titulo }}</h5>
+                                                <h2 class="card-title text-truncate" style="font-size: medium;" data-toggle="tooltip" title="{{ livro.titulo }}">{{ livro.titulo }}</h2>
                                                 <p1 class="card-text text-truncate" data-toggle="tooltip" title="{{ livro.editora }}">Editora: {{ livro.editora }}</p>
                                                 <p1 class="card-text text-truncate" data-toggle="tooltip" title="{{ livro.autor }}">Autor: {{ livro.autor }}</p>
                                                 <a target="_blank" href="{% url 'info-livro' livro.pk %}" class="btn btn-secondary m-auto zoom-bt" style=" border-color: #2374e1;background: #2374e1;font-size: medium;">Saiba Mais</a>

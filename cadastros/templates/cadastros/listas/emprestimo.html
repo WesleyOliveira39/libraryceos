@@ -30,6 +30,7 @@
                 <th>ISBN</th>
                 <th>Identificador</th>
                 <th>Status</th>
+                <th>Usuário</th>
                 <th>Opções</th>
             </tr>
 
@@ -38,6 +39,7 @@
                 <td>{{ borrow.book.livro.isbn }}</td>
                 <td>{{ borrow.book.identificador }}</td>
                 <td>{{ borrow.status }}</td>
+                <td>{{ borrow.student }}</td>
                 <td>
                     <a href="{% url 'atualizar-emprestimo' borrow.pk %}" class="btn btn-warning btn-sm" title="Atualizar"><i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>

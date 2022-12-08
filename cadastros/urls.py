@@ -34,5 +34,4 @@ urlpatterns = [
     path('manage_borrow/<int:pk>', views.manage_borrow, name='manage-borrow-pk'),
     path('view_borrow/<int:pk>', views.view_borrow, name='view-borrow-pk'),
     path('save_borrow', views.save_borrow, name='save-borrow'),
-    path('delete_borrow/<int:pk>', views.delete_borrow, name='delete-borrow'),
 ]

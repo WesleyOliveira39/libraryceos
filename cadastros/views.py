@@ -408,8 +408,9 @@ def context_data(request):
 def borrows(request):
     context = context_data(request)
     context['page'] = 'borrow'
-    context['page_title'] = "Borrowing Transaction List"
-    context['borrows'] = models.Borrow.objects.order_by('status').all()
+    context['page_title'] = "Controle de Empréstimo"
+    context['borrows'] = models.Borrow.objects.filter(student__username=request.user).order_by('status').all()
+    
     return render(request, 'borrows.html', context)
 
 
@@ -428,10 +429,10 @@ def save_borrow(request):
             form.save()
             if post['id'] == '':
                 messages.success(
-                    request, "Borrowing Transaction has been saved successfully.")
+                    request, "Reserva efetuada com sucesso!.")
             else:
                 messages.success(
-                    request, "Borrowing Transaction has been updated successfully.")
+                    request, "Reserva atualizada com sucesso!.")
             resp['status'] = 'success'
         else:
             for field in form:
@@ -449,7 +450,7 @@ def save_borrow(request):
 def view_borrow(request, pk=None):
     context = context_data(request)
     context['page'] = 'view_borrow'
-    context['page_title'] = 'View Transaction Details'
+    context['page_title'] = 'Detalhes da Transição'
     if pk is None:
         context['borrow'] = {}
     else:
@@ -462,29 +463,15 @@ def view_borrow(request, pk=None):
 def manage_borrow(request, pk=None):
     context = context_data(request)
     context['page'] = 'manage_borrow'
-    context['page_title'] = 'Manage Transaction Details'
+    context['page_title'] = 'Reserva'
     if pk is None:
         context['borrow'] = {}
     else:
         context['borrow'] = models.Borrow.objects.get(id=pk)
     #livro = Livro.objects.get(pk=id)
-    #context['students'] = models.User.objects.filter(username=request.user)
+    context['students'] = models.User.objects.filter(username=request.user)
     #multiple_q = Q(Q(status__icontains=1) | Q(livro__id__icontains=livro))
     context['books'] = models.Exemplar.objects.all()
     return render(request, 'manage_borrow.html', context)
 
-@login_required
-def delete_borrow(request, pk=None):
-    resp = {'status': 'failed', 'msg': ''}
-    if pk is None:
-        resp['msg'] = 'Transaction ID is invalid'
-    else:
-        try:
-            models.Borrow.objects.filter(pk=pk).delete()
-            messages.success(
-                request, "Transaction has been deleted successfully.")
-            resp['status'] = 'success'
-        except:
-            resp['msg'] = "Deleting Transaction Failed"
 
-    return HttpResponse(json.dumps(resp), content_type="application/json")

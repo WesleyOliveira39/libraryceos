@@ -134,7 +134,7 @@
           {% if request.user.is_authenticated %}
             {% if request.user|is_group:"Leitores" %}
             <li class="nav-item">
-              <a class="dropdown-item" href="{% url 'borrow-page' %}">Empréstimos</a>
+              <a class="nav-link" href="{% url 'borrow-page' %}">Empréstimos</a>
             </li>
             {% else %}
             <li class="nav-item dropdown">
@@ -429,7 +429,6 @@
     </div>
 
     {% block chat %}
-    
     {% endblock %}
 
     {% block rodape %}
