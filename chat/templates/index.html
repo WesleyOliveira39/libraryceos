@@ -1,32 +1,43 @@
-{% extends 'core/modelo.html' %}
 {% load static %}{% load customfilter %}
-{% block titulo %}
-    <title>Chat</title>
-{% endblock %}
-{% block barra %}{% endblock %}
-{% block carrossel %}{% endblock %}
-{% block conteudo %}
-        <div class="container mt-3 p-5">
-            <h2>Chat</h2>
-            <div class="row">
-                <div class="col-12 col-md-8">
-                    <div class="mb-2">
-                        <label for="roomInput">Digite o nome da sala que deseja entrar:</label>
-                        <input type="text" class="form-control" id="roomInput" placeholder="Nome da sala">
-                        <small id="roomInputHelp" class="form-text text-muted">Se a sala não existir, essa será criada automaticamente.</small>
-                    </div>
-                    <button type="button" id="roomConnect" class="btn btn-success">Conectar</button>
+
+<div class="chat-screen">
+    <div class="chat-header">
+        <div class="chat-header-title">
+            CHAT - LibraryCeos
+        </div>
+    </div>
+    <div class="chat-mail">
+        <div class="row">
+            <div class="col-md-12 text-center mb-2">
+                <p>Seja bem-vindo ao nosso chat!👋</p>
+                <p>O que acha de bater um papo com outros leitores online aqui no momento?</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="roomInput">Digite um nome para entrar em uma sala já existente ou para criar uma nova:</label>
+                    <input type="text" class="form-control" id="roomInput" placeholder="Nome da sala">Sala Teste: Geral</input>   
                 </div>
-                <div class="col-12 col-md-4">
+            </div>
+            <div class="col-md-12">
                     <label for="roomSelect">Salas</label>
-                    <select multiple class="form-control" id="roomSelect" style="height: 300px">
+                    <select class="form-control" id="roomSelect">
                         {% for room in rooms %}
                             <option>{{ room }}</option>
                         {% endfor %}
                     </select>
-                </div>
+            </div>
+            <div class="col-md-12">
+                <br>
+                <br>
+                <br>
+                <button type="button" id="roomConnect" class="btn btn-primary btn-rounded btn-block">Conectar</button>
             </div>
         </div>
-        
-        <script src="{% static 'assets/js/index.js' %}"></script>
-{% endblock %}
+    </div>  
+</div>
+<div class="chat-bot-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square animate"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x "><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+</div>

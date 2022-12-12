@@ -36,19 +36,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.contrib.sites',
-       
     # 'nomedoapp.apps.NomedoappConfig',
     'core.apps.CoreConfig',
     'cadastros.apps.CadastrosConfig',
     'usuarios.apps.UsuariosConfig',
     'chat.apps.ChatConfig',
-    
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    
     'allauth.socialaccount.providers.google',
-    
     'django_cleanup.apps.CleanupConfig',
     'crispy_forms',
     'django_filters',
@@ -98,12 +94,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'LibraryCeos.wsgi.application'
 ASGI_APPLICATION = 'LibraryCeos.asgi.application'
+
+
+
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer'
     }
 }
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases

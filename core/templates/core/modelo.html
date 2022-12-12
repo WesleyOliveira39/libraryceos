@@ -429,6 +429,7 @@
     </div>
 
     {% block chat %}
+    {% include "index.html" %}
     {% endblock %}
 
     {% block rodape %}
@@ -472,8 +473,8 @@
           <div class="col-sm-2">
             <h5>Diretrizes</h5>
             <ul>
-              <li><a target="_blank" href="{% static 'assets/pdf/termo_uso' %}">Termo de Uso</a></li>
-              <li><a target="_blank" href="{% static 'assets/pdf/politica_privacidade' %}">Política de Privacidade</a></li>
+              <li><a target="_blank" href="{% static 'assets/pdf/termo_uso.pdf' %}">Termo de Uso</a></li>
+              <li><a target="_blank" href="{% static 'assets/pdf/politica_privacidade.pdf' %}">Política de Privacidade</a></li>
             </ul>
           </div>
 
@@ -715,8 +716,8 @@
 
         })
     </script>
-    {% block chatJS %}
 
+{% block chatJS %}
 <script src="{% static 'assets/js/index.js' %}"></script>
 
 <script type="257be86a981729866f2fa61c-text/javascript">
@@ -749,12 +750,6 @@
             $('.chat-body').removeClass('hide');
             $('.chat-input').removeClass('hide');
             $('.chat-header-option').removeClass('hide');
-        });
-        $('.end-chat').click(function () {
-            $('.chat-body').addClass('hide');
-            $('.chat-input').addClass('hide');
-            $('.chat-session-end').removeClass('hide');
-            $('.chat-header-option').addClass('hide');
         });
     });
 </script>

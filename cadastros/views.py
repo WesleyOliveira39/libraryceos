@@ -468,10 +468,16 @@ def manage_borrow(request, pk=None):
         context['borrow'] = {}
     else:
         context['borrow'] = models.Borrow.objects.get(id=pk)
-    #livro = Livro.objects.get(pk=id)
+    context['books'] = models.Exemplar.objects.all() 
     context['students'] = models.User.objects.filter(username=request.user)
-    #multiple_q = Q(Q(status__icontains=1) | Q(livro__id__icontains=livro))
-    context['books'] = models.Exemplar.objects.all()
     return render(request, 'manage_borrow.html', context)
 
+'''def exemplar_info(request, id):
+    livro = Livro.objects.get(pk=id)
+    books = Exemplar.objects.filter(livro_id=id)
 
+    context = {
+        'livro': livro,
+        'books': books}
+
+    return render(request, 'manage_borrow.html', context)'''
