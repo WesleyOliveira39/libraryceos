@@ -16,7 +16,7 @@ SECRET_KEY = 'dn4!q!tvvyh7qy$wf**l7j#i^th-nd#%nul=3$kp+!59c%&=@!'
 #DEBUG = True
 #DEBUG = config('DEBUG', cast=bool, default=False)
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1:8000']
 #ALLOWED_HOSTS = []  # ALTERAR EM CASO DE NOVA HOSPEDAGEM
 
 #RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
@@ -101,6 +101,15 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
             "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+        },
+    },
+}
+CACHES = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'LOCATION': [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+        'OPTIONS': {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
         },
     },
 }
