@@ -96,12 +96,20 @@ WSGI_APPLICATION = 'LibraryCeos.wsgi.application'
 ASGI_APPLICATION = 'LibraryCeos.asgi.application'
 
 
-
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer'
-    }
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
 }
+
+#CHANNEL_LAYERS = {
+#    'default': {
+#        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+#    }
+#}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
