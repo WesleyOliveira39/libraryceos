@@ -66,8 +66,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_SSL_REDIRECT = True
 
 ACCOUNT_FORMS = {
     'signup': 'yourapp.forms.CustomSignupForm',
@@ -104,15 +104,7 @@ CHANNEL_LAYERS = {
         },
     },
 }
-CACHES = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'LOCATION': [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
-        'OPTIONS': {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
-        },
-    },
-}
+
 
 #CHANNEL_LAYERS = {
 #    'default': {
